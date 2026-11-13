@@ -23,6 +23,18 @@ def core_words(name):
     return core or [x for x in w if x not in {"limited", "ltd", "plc", "llp"}]
 
 
+LEGAL = set(
+    "limited ltd plc llp lp cic llc inc gmbh ou sa bv ag trust association society "
+    "partnership partners club charity foundation council".split()
+)
+
+
+def looks_like_company(name):
+    """A name with no legal ending is often a sole trader, a person's name. Those are not
+    written to anything committed."""
+    return bool(LEGAL & set(words(name)))
+
+
 def same_name(a, b):
     """Loose comparison for HMRC's registered name against Companies House."""
     return core_words(a) == core_words(b)
