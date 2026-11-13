@@ -1,0 +1,14 @@
+what,value
+"page requests made, both runs",1691
+pages that came back as html,1382
+html megabytes,199.7
+domains looked up,5388
+domains that resolve,759
+register sample: companies,400
+"register sample: wall seconds, 12 threads",295
+register sample: strict finds,6
+register sample: wall seconds per strict find,49.2
+peppol known set: companies,133
+"peppol known set: wall seconds, 12 threads",174
+peppol known set: strict finds,14
+peppol known set: wall seconds per strict find,12.4
