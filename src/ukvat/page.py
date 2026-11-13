@@ -27,6 +27,8 @@ def text_of(html):
     return re.sub(r"\s+", " ", body.text(separator=" ")).strip()
 
 
+# TODO: terms often sit in a pdf and some footers are an image. both are skipped, so a site
+# counted as "no vat number" may just have it where this cannot read
 def links_to_follow(html, base_url, limit=4):
     host = urlsplit(base_url).netloc
     out = []

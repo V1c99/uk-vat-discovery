@@ -19,7 +19,7 @@ def digits(s):
 
 
 def check_digits_ok(vrn):
-    """True if the 9 digits pass either HMRC scheme (mod 97, or mod 97 after adding 55)."""
+    # mod 97 for the old numbers, mod 97 after adding 55 for the ones issued since about 2010
     if len(vrn) != 9 or not vrn.isdigit():
         return False
     total = sum(int(d) * w for d, w in zip(vrn[:7], WEIGHTS, strict=True)) + int(vrn[7:])

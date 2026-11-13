@@ -89,6 +89,8 @@ def decide(company, sites, found):
         outcome = "no_site"
     elif len(strict) == 1:
         outcome = "strict"
+    # TODO: two numbers means no answer even when one of them is a platform's (EPOS on
+    # kebabcity.com). a list of numbers seen on many unrelated sites would fix that
     elif len(strict) > 1:
         outcome = "ambiguous"
     elif len(loose) == 1:

@@ -1,4 +1,4 @@
-"""Runs .sql files with DuckDB, from the repo root: python -m ukvat.run_sql sql/sample.sql"""
+# python -m ukvat.run_sql sql/sample.sql, from the repo root
 
 import sys
 

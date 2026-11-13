@@ -6,6 +6,7 @@ company already holds. Its recall is a floor, the company number check keeps it 
 
 from ukvat.names import core_words, words
 
+# TODO: .org.uk and .net are never tried, charities and some old firms use them
 TLDS = (".co.uk", ".com", ".uk")
 
 
