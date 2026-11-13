@@ -151,6 +151,65 @@ number.
 
 Both are too small to matter for 2 million registrations.
 
+## 13 Nov, public records
+
+The brief lists insolvency notices, public sector spend and procurement records. One run each.
+
+```
+python experiments/procurement_ids.py 2026-11-03 2026-11-10 results/probes/procurement_ids.csv
+python experiments/gazette_vat.py results/probes/gazette_vat.csv
+python experiments/spend_headers.py results/probes/spend_headers.csv
+python experiments/spend_vat.py results/probes/spend_headers.csv results/probes/spend_vat.csv
+```
+
+- Find a Tender, one week of notices (3 to 10 Nov): 2,464 notices, 5,529 parties. The identifier
+  schemes used are GB-PPON (4,071), GB-COH (1,608), GB-NHS (98) and a few others. None is a VAT
+  number.
+- The Gazette: 1,705,312 notices contain "Company number". "VAT No" is in 28, "VAT number" in 10,
+  "VAT registration no" in 5, "VAT registration number" in 1.
+- Spend files: one recent csv per publisher from the data.gov.uk catalogue, 314 publishers, 112 files
+  answered with a header. 6 have a column named for a VAT number. In 4 of them the column is empty,
+  in Shropshire Community Health NHS Trust's file it holds VAT amounts (2.1, 10.49, 4.4), and only St
+  Helens and Knowsley Teaching Hospitals NHS Trust fills it: 34 numbers for 38 suppliers, all 34 pass
+  the check digits. No spend file has a company number column.
+
+## 13 Nov, marketplaces
+
+Amazon and eBay show a VAT number on business sellers' pages, so I looked at whether they can be
+read at all before trying anything.
+
+```
+python experiments/marketplace_robots.py results/probes/marketplace_robots.csv
+```
+
+Both robots.txt files have `Disallow: /` for CCBot, Common Crawl's crawler, so none of their seller
+pages are in the corpus. A crawler under any other name is allowed by robots.txt, but both sites'
+terms forbid scraping, so I did not fetch any seller page.
+
+## 13 Nov, a German number in VIES
+
+The website route met two German VAT IDs on a German group's Impressum page. VIES on both:
+
+```
+python experiments/vies_germany.py results/probes/vies_germany.csv 250965905 136632461
+```
+
+Both valid, and for both VIES shows "---" for the name and the address. So for Germany VIES can say a
+number exists, but not whose it is.
+
+## 13 Nov, numbers for Part 3 and the debates
+
+```
+python experiments/checksum_space.py results/probes/checksum_space.csv
+python experiments/unit_costs.py results/probes/unit_costs.csv
+```
+
+- 20,615,843 nine digit numbers pass the check digits (10,304,247 on mod 97, 10,311,596 on mod 97
+  plus 55). At HMRC's standard 3 requests a second that is 79.5 days for one application.
+- The website route made 1,691 page requests for the 533 companies of both runs and downloaded 200 MB
+  of html. 5,388 domains were looked up and 759 resolve. On the register that is 49 seconds of this
+  laptop per strict find, on the known set 12 seconds.
+
 ## Waiting for the hand checks
 
 `results/hmrc/to_check.csv` has 45 numbers for HMRC's web checker: the 10 from the register, the 15
