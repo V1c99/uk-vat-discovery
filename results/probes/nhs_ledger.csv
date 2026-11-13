@@ -1,0 +1,35 @@
+vrn,supplier,in_peppol,eori,companies_with_that_name
+109898228,PHOENIX HEALTHCARE DISTRIBUTION LTD,False,"eori, no name shared",1
+202417948,ESOS ENERGY LTD,False,no eori,1
+207929448,JANSSEN CILAG LTD,False,"eori, no name shared",1
+213329300,PITNEY BOWES LTD,False,same name,3
+222516987,AAH PHARMACEUTICALS LTD,True,"eori, no name shared",1
+243663406,WATER PLUS LTD,False,no eori,2
+290885854,SUPPLY CHAIN COORDINATION LIMITED,False,same name,1
+293366572,DA LANGUAGES LTD,False,"eori, no name shared",0
+386334767,ALLIANCE HEALTHCARE DISTRIBUTION LTD,False,"eori, no name shared",0
+391171065,CIVICA UK LTD,False,"eori, no name shared",3
+538389011,AMGEN LTD,False,"eori, no name shared",3
+569953277,VODAFONE LTD,True,"eori, no name shared",2
+591819014,VIRGIN MEDIA LTD,False,"eori, no name shared",1
+600433106,ESSITY UK LTD,False,"eori, no name shared",1
+635823528,DELL CORPORATION LTD,False,"eori, no name shared",1
+636163443,SIEMENS HEALTHCARE DIAGNOSTICS LTD,False,no eori,1
+641958611,BAYER PLC,False,"eori, no name shared",1
+684090520,ALLOGA UK LTD,False,same name,1
+706163456,SYNERGY HEALTH (UK) LTD,False,"eori, no name shared",4
+782562113,COMMUNITY HEALTH PARTNERSHIPS LTD,True,no eori,1
+816243248,CCUBE SOLUTIONS LTD,False,no eori,0
+828833692,4 WAYS HEALTHCARE LTD,False,same name,1
+828901412,UK MEDIATION LTD,False,"eori, no name shared",4
+849745765,POLAR SPEED DISTRIBUTION LTD,False,"eori, no name shared",1
+864455303,QA LTD,False,"eori, no name shared",7
+864464302,NEW HOSPITALS (ST HELENS & KNOWSLEY) LTD,False,no eori,0
+873342418,SCIENSUS PHARMA SERVICES LTD,True,same name,1
+885208793,MEDSTROM LTD,False,"eori, no name shared",2
+888851648,,False,"eori, no name shared",0
+896105403,BOSTON SCIENTIFIC LTD,False,no eori,1
+902185450,CIS ONCOLOGY LTD,False,no eori,1
+902194939,CDW LTD,False,"eori, no name shared",8
+927438206,CAREFLOW MEDICINES MANAGEMENT LTD,False,"eori, no name shared",1
+974809667,MAWDSLEY BROOKS & CO LTD,False,"eori, no name shared",1
