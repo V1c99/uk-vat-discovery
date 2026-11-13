@@ -6,10 +6,12 @@ company numbers.
 """
 
 import csv
+import re
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from ukvat import fetch
 from ukvat.domains import guesses
@@ -18,20 +20,23 @@ from ukvat.vat import find_candidates
 
 
 def snippet(text, vrn, width=70):
-    flat = text.replace(" ", "")
-    i = flat.find(vrn)
-    if i < 0:
+    # the number can be written with spaces in it, "990 1087 16"
+    m = re.search(r"\s?".join(vrn), text)
+    if not m:
         return ""
-    # map back roughly, good enough to show where the number sat
-    pos = max(0, int(i * len(text) / max(len(flat), 1)) - width)
-    return text[pos : pos + 2 * width]
+    return text[max(0, m.start() - width) : m.end() + width]
+
+
+def bare(url):
+    # query strings on redirects carry session tokens, they are not kept
+    return urlsplit(url)._replace(query="", fragment="").geturl()
 
 
 def read_site(company, domain):
     home = fetch.get(f"https://{domain}/")
     if not home["html"] and home["status"] not in ("robots",):
         home = fetch.get(f"http://{domain}/")
-    site = {"domain": domain, "status": home["status"], "final_url": home["final_url"]}
+    site = {"domain": domain, "status": home["status"], "final_url": bare(home["final_url"])}
     pages = [home]
     if home["html"]:
         pages += [fetch.get(u) for u in links_to_follow(home["html"], home["final_url"])]
@@ -50,7 +55,7 @@ def read_site(company, domain):
                 {
                     "company_number": company["company_number"],
                     "domain": domain,
-                    "page": p["final_url"],
+                    "page": bare(p["final_url"]),
                     "vrn": vrn,
                     "how": how,
                     "check_digits_ok": ok,
@@ -146,6 +151,7 @@ def main(sample_csv, out_dir, limit=None):
         ["company_number", "domain", "status", "final_url", "pages", "own_number"],
     )
     write(out / "candidates.csv", all_found, CANDIDATE_FIELDS)
+    fetch.save_dns()
     print(f"done, {len(companies)} companies in {time.time() - started:.0f}s")
 
 

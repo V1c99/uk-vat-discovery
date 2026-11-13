@@ -26,6 +26,16 @@ def check_digits_ok(vrn):
     return total % 97 == 0 or (total + 55) % 97 == 0
 
 
+def foreign_prefix(text, start):
+    """True if the number is written after another country's code, like DE 250965905.
+
+    German VAT IDs are also 9 digits. The check digits caught them on the first run, this
+    drops them before that.
+    """
+    m = re.search(r"\b([A-Z]{2})[\s:.]*$", text[max(0, start - 6) : start])
+    return m is not None and m.group(1) not in ("GB", "XI")
+
+
 def find_candidates(text):
     """All 9 digit numbers next to the word VAT, or written as GB plus 9 digits.
 
@@ -33,6 +43,8 @@ def find_candidates(text):
     """
     seen = {}
     for m in NEAR_VAT.finditer(text):
+        if foreign_prefix(text, m.start(1)):
+            continue
         vrn = digits(m.group(1))
         seen.setdefault(vrn, "near_vat")
     for m in BARE_GB.finditer(text):

@@ -46,6 +46,12 @@ def test_branch_suffix_is_not_part_of_the_number():
     assert found[0][0] == vrn
 
 
+def test_other_countries_are_skipped():
+    vrn = make_valid("2223334")
+    assert find_candidates(f"VAT ID No. DE {vrn} Registry Court Berlin") == []
+    assert find_candidates(f"VAT No. XI {vrn}")[0][0] == vrn
+
+
 def test_phone_numbers_and_company_numbers_are_not_vat():
     text = "Tel 0121 496 0000. Company No. 01234567. Registered in England."
     assert find_candidates(text) == []

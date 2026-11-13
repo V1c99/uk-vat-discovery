@@ -16,18 +16,40 @@ import requests
 AGENT = "uk-vat-research/0.1"
 HEADERS = {"User-Agent": f"Mozilla/5.0 (compatible; {AGENT})", "Accept-Language": "en-GB"}
 CACHE = Path("data/pages")
+DNS_CACHE = Path("data/dns.json")
 PAUSE = 1.0
 
 _dns = ThreadPoolExecutor(max_workers=32)
 _robots = {}
+# two runs on the same sample differed by six companies because lookups timed out under load,
+# so answers are kept and a rerun sees the same domains
+_answers = json.loads(DNS_CACHE.read_text()) if DNS_CACHE.exists() else {}
 
 
-def resolves(domain, timeout=4):
+def _lookup(domain, timeout):
+    """True, False when the name does not exist, None when the resolver did not answer."""
     try:
         _dns.submit(socket.getaddrinfo, domain, 443).result(timeout=timeout)
         return True
+    except socket.gaierror as e:
+        # 11002 is Windows' "try again", it means busy, not missing
+        return None if e.errno in (socket.EAI_AGAIN, 11002) else False
     except (OSError, FutureTimeout):
-        return False
+        return None
+
+
+def resolves(domain):
+    if domain not in _answers:
+        ok = _lookup(domain, 8)
+        if ok is None:
+            ok = bool(_lookup(domain, 15))
+        _answers[domain] = ok
+    return _answers[domain]
+
+
+def save_dns():
+    DNS_CACHE.parent.mkdir(parents=True, exist_ok=True)
+    DNS_CACHE.write_text(json.dumps(_answers, indent=0, sort_keys=True))
 
 
 def _cache_path(url):
