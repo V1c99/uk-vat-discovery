@@ -1,0 +1,5 @@
+site,page,common_crawl_allowed,any_crawler_allowed,read_on
+amazon,seller profile,False,True,2026-11-13
+ebay,store,False,True,2026-11-13
+ebay,user profile,False,True,2026-11-13
+ebay,listing,False,True,2026-11-13
