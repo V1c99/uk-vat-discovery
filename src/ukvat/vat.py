@@ -1,0 +1,41 @@
+"""UK VAT numbers: the check digit test and finding candidates in page text."""
+
+import re
+
+WEIGHTS = (8, 7, 6, 5, 4, 3, 2)
+
+# "VAT" near a number, then the number itself. GB is optional because many footers drop it.
+# Branch traders add three digits, those are kept apart because HMRC checks the first nine.
+NEAR_VAT = re.compile(
+    r"\bVAT\b[^0-9]{0,40}?(?:GB)?[\s:.]*((?:\d[\s.-]?){8}\d)(?:[\s.-]?(\d{3}))?(?!\d)",
+    re.I,
+)
+# a bare GB number with no VAT word, footers often have "GB 123 4567 89" on its own
+BARE_GB = re.compile(r"\bGB[\s:]?((?:\d\s?){8}\d)(?!\d)")
+
+
+def digits(s):
+    return re.sub(r"\D", "", s)
+
+
+def check_digits_ok(vrn):
+    """True if the 9 digits pass either HMRC scheme (mod 97, or mod 97 after adding 55)."""
+    if len(vrn) != 9 or not vrn.isdigit():
+        return False
+    total = sum(int(d) * w for d, w in zip(vrn[:7], WEIGHTS, strict=True)) + int(vrn[7:])
+    return total % 97 == 0 or (total + 55) % 97 == 0
+
+
+def find_candidates(text):
+    """All 9 digit numbers next to the word VAT, or written as GB plus 9 digits.
+
+    Returns (vrn, how, passes_check) with each vrn once, in the order they appear.
+    """
+    seen = {}
+    for m in NEAR_VAT.finditer(text):
+        vrn = digits(m.group(1))
+        seen.setdefault(vrn, "near_vat")
+    for m in BARE_GB.finditer(text):
+        vrn = digits(m.group(1))
+        seen.setdefault(vrn, "bare_gb")
+    return [(v, how, check_digits_ok(v)) for v, how in seen.items()]
