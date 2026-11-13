@@ -1,0 +1,14 @@
+what,value
+wet files read,4
+of all wet files in the crawl,100000
+gzip megabytes read,251
+pages,83776
+pages on .uk hosts,1792
+pages with a valid uk vat number,172
+pages with a vat number and a company number,122
+clean pairs (one of each on the page),117
+distinct vat numbers in clean pairs,106
+distinct vat numbers whose company number is a live company,105
+distinct hosts in clean pairs,107
+"pages with both, times the share of the crawl not read",3050000
+seconds,9

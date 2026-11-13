@@ -38,6 +38,7 @@ def test_name_words():
     assert core_words("THE GROUP LTD") == ["the", "group"]
     assert same_name("ACME WIDGETS LTD", "Acme Widgets Limited")
     assert not same_name("ACME WIDGETS LTD", "ACME WIDGET SUPPLIES LTD")
+    assert same_name("YOURDESIGN.CO.UK LIMITED", "YOUR DESIGN.CO.UK LIMITED")
 
 
 def test_domain_guesses():

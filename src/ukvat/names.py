@@ -36,5 +36,6 @@ def looks_like_company(name):
 
 
 def same_name(a, b):
-    """Loose comparison for HMRC's registered name against Companies House."""
-    return core_words(a) == core_words(b)
+    """Loose comparison for HMRC's registered name against Companies House. Spaces do not count,
+    YOURDESIGN.CO.UK LIMITED and YOUR DESIGN.CO.UK LIMITED were the same company."""
+    return "".join(core_words(a)) == "".join(core_words(b))
