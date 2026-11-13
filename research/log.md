@@ -1,159 +1,131 @@
 # Research log
 
-What I ran, in the order I ran it, with what came back. Raw downloads are in `data/` (not
-committed, `data/README.md` says how to get them), everything a number comes from is in `results/`.
+My notebook for this, in the order things happened. Raw downloads are in `data/` (not committed,
+`data/README.md` says how to get them back), every number below comes from a file in `results/`.
+Commands are run from the repo root.
 
-## 12 Nov, HMRC first
+## 12 Nov, before anything
 
-Every number I report has to go through HMRC's checker, so I read HMRC's developer pages before
-anything else.
+Everything I report has to be confirmed with HMRC's checker, so I started with HMRC's own
+developer pages and not with any data.
 
-- The old open version of the VAT checking API was removed on 17 Feb 2025. Version 2 needs an
-  application, HMRC says registering takes around 2 weeks, and the page says the API is for traders
-  doing due diligence on VAT registered businesses.
-- The EORI checking API is open, no login, up to 10 numbers per request. It says if a GB EORI is
-  valid and gives the name and address when the trader agreed to share them. For a VAT registered
-  trader the EORI is GB, the VAT number, then 000.
-- The standard limit for HMRC APIs is 3 requests per second per application.
+The old open API for checking VAT numbers was removed on 17 Feb 2025. Version 2 needs an
+application, HMRC says registering takes around 2 weeks, and the page says the API is only for
+traders doing due diligence on VAT registered businesses. Building a dataset to sell is not that.
 
-So the numbers I report get checked by hand in the web checker (gov.uk/check-uk-vat-number), and
-the EORI API is used only on numbers I already found.
+The EORI checker is a different HMRC API and it is open, no login, up to 10 numbers per request. A
+VAT registered trader's EORI is GB, the VAT number, then 000, so it can say something about a VAT
+number too. HMRC's standard limit for an application is 3 requests a second.
 
-## 13 Nov, the snapshot and the sample
+So the numbers I report get checked by hand in the web checker, and I use the EORI API only on
+numbers I already found, never to try numbers out.
+
+## 13 Nov, the sample
 
 Companies House snapshot of 1 Nov 2026: 5,711,779 companies, 5,179,256 of them Active
 (`results/ch_profile.csv`).
 
-The frame is every Active company that is not DORMANT and not an Overseas Entity, 4,591,683
-companies. Four strata by accounts category, because that is the only size signal in the snapshot
-and turnover is what decides VAT registration:
+I took every Active company that is not DORMANT and not an Overseas Entity, 4,591,683, and split
+them by accounts category, because that is the only thing in the snapshot that says anything about
+size, and turnover is what decides VAT registration. Micro 1,686,224, small 1,444,419, large
+(medium, full, group and the subsidiary exemptions) 147,827, new (no accounts yet) 1,313,213. 100
+from each.
 
-| stratum | accounts categories | companies in the frame |
-|---|---|---|
-| micro | MICRO ENTITY | 1,686,224 |
-| small | total exemption, unaudited and audited abridged, SMALL | 1,444,419 |
-| large | MEDIUM, FULL, GROUP, subsidiary exemptions | 147,827 |
-| new | no accounts filed yet | 1,313,213 |
-
-100 companies from each, 400 in total (`sample/register.csv`). The order inside each stratum is md5
-of a seed and the company number, so the same snapshot gives the same 400.
+The order inside a stratum is md5 of a seed and the company number. Anyone with the same snapshot
+gets the same 400, and it does not depend on duckdb's random numbers.
 
 ```
 python -m ukvat.run_sql sql/profile.sql sql/sample.sql
 ```
 
-## 13 Nov, the website route on the 400
+## 13 Nov, websites for the 400
 
-Companies House has no websites, so for each company I guessed up to 12 domains from its name
-(.co.uk, .com and .uk), kept the ones that resolve, read the home page and up to four contact,
-terms, privacy or about pages, and looked for VAT numbers and company numbers in the text. A site
-counts as the company's own only if its company number is on it. Robots.txt is respected and there
-is a one second pause between requests to the same site.
+Companies House has no websites, so I guess up to 12 domains from the name and only believe a site
+is the company's if its company number is on it. Then home page plus up to four contact, terms,
+privacy or about pages, a regex for VAT numbers, the check digits.
 
 ```
 python -m ukvat.websites sample/register.csv results/websites
 ```
 
-4,068 domains guessed, 233 companies had at least one live site, but only 23 of the 400 had a site
-showing their own company number. Those 23 are the ceiling of this route on the register.
+The first run found two numbers on erk-systems.com that were German VAT IDs (DE 250965905), nine
+digits like ours. The check digits threw them out, and now the regex also drops a number written
+after another country's code.
 
-| outcome | micro | small | large | new | all |
-|---|---|---|---|---|---|
-| own site with one VAT number (strict) | 1 | 2 | 2 | 1 | 6 |
-| own site, no VAT number on it | 7 | 4 | 5 | 1 | 17 |
-| a VAT number on a guessed site that is not provably theirs (loose) | 0 | 1 | 2 | 1 | 4 |
-| live sites, nothing | 51 | 58 | 54 | 51 | 214 |
-| no site resolved | 41 | 35 | 37 | 46 | 159 |
+The second run gave 6 companies fewer with a site than the first. DNS lookups were timing out under
+load and Windows' "try again" was read as "does not exist". Answers are cached now, a "try again"
+is retried, and a second look made 45 more of the 4,068 guessed domains resolve. Two runs in a row
+give the same file since.
 
-Of the 23 companies with their own site, 6 printed a VAT number on it.
+| | micro | small | large | new |
+|---|---|---|---|---|
+| own site, one VAT number on it (strict) | 1 | 2 | 2 | 1 |
+| own site, no VAT number | 7 | 4 | 5 | 1 |
+| a number on a guessed site that does not show their company number (loose) | 0 | 1 | 2 | 1 |
+| live guessed sites but nothing | 51 | 58 | 54 | 51 |
+| no guessed domain resolves | 41 | 35 | 37 | 46 |
 
-Two problems on the way:
+233 of the 400 had some live guessed site. Only 23 had one that is provably theirs, and 6 of those
+23 print a VAT number. Finding the site is where this breaks, not reading the number.
 
-- A German group's site matched my regex with two German VAT IDs (DE 250965905). They failed the
-  UK check digits, and the regex now also drops a number written after another country's code.
-- The second run gave 6 companies fewer with a site than the first. DNS lookups were timing out
-  under load and "try again" from the resolver was read as "does not exist". Answers are kept in a
-  cache now, a "try again" is retried, and two runs in a row give the same file.
-
-## 13 Nov, the EORI API on the ten numbers
+## 13 Nov, a second look at the ten numbers
 
 ```
 python -m ukvat.eori results/websites/companies.csv results/eori/websites.csv
 ```
 
-4 of the 10 numbers have a live EORI. Two came back with a name, and both names are a different
-company from the one I found the number for:
-
-- KEBAB CITY ORIGINAL LTD (loose): the number is on the terms page of kebabcity.com, and HMRC's EORI
-  record says EPOS TECHNOLOGIES LIMITED. The site runs on their ordering platform and the terms page
-  is theirs.
-- HOUSING MAINTENANCE SOLUTIONS LIMITED (strict): the site shows its own company number next to the
-  VAT number, and the EORI record says TORUS 62 LTD, same postcode WA9 1LD. Probably a VAT group,
-  where HMRC holds the group under one member's name. For matching invoices that is the right
-  number, but a check on the name would call it wrong.
+4 of the 10 have a live EORI, 2 came back with a name, and both names are a different company. The
+number on kebabcity.com's terms page belongs to EPOS TECHNOLOGIES LIMITED, the ordering platform
+the site runs on. The one on Housing Maintenance Solutions' own site is under TORUS 62 LTD, same
+postcode WA9 1LD. I think that is a VAT group, which would make it the right number for an invoice
+and still a wrong one for a name check.
 
 ## 13 Nov, Peppol
 
-Peppol is the e-invoicing network. Its directory publishes who can receive invoices, and a UK
-business can be registered under scheme 9932, which is its VAT number.
+Peppol is the e-invoicing network and its directory lists who can receive invoices. A UK business
+can be in it under scheme 9932, and the identifier is then its VAT number.
+
+The participant export has 9,600,319 participants for all countries, 22,654 of them under 9932.
+22,446 distinct nine digit numbers, 22,431 pass the check digits. Most of the rest are company
+numbers registered under the wrong scheme.
+
+I read 200 random business cards through the search API and the first try gave 190 empty answers.
+Peppol writes 21,795 of the 22,654 as gb123456789, I had sent the digits alone. With the identifier
+as written, all 200 have a name.
+
+140 of the 200 were registered in 2025 and 51 in 2026, and 106 on the same day, 25 Aug 2025. 31
+names have no legal ending and look like people, sole traders. Their names are personal data, so
+they stay in `data/` and are blank in `results/peppol/`.
+
+Linking the other 169 to Companies House by the words of the name, no fuzzy matching: 133 point at
+exactly one company, 19 at several, 17 at none.
 
 ```
 python -m ukvat.peppol data/probes/peppol/participants.csv results/peppol
-```
-
-- The participant export lists 9,600,319 participants for all countries. 22,654 are under 9932,
-  21,795 of them written with a lower case gb in front.
-- 22,446 distinct nine digit numbers, 22,431 pass the check digits. Most of the rest are company
-  numbers registered under the wrong scheme (eight digits like 00883094) and one test value.
-- I read 200 random business cards. My first try sent the digits without the gb and 190 of 200 came
-  back empty. With the identifier as Peppol writes it, all 200 have a name.
-- 140 of the 200 were registered in 2025 and 51 in 2026, 106 of them on the same day, 25 Aug 2025.
-  That looks like one provider registering its customers at once.
-- 31 of the 200 names have no legal ending and most look like people, sole traders. Their names are
-  personal data, so they are kept in `data/` only and blank in `results/peppol/`.
-
-Linking the 169 company names to Companies House by their key words, no fuzzy matching:
-
-| names | exactly one company | several | none |
-|---|---|---|---|
-| 169 that look like a company | 133 | 19 | 17 |
-
-```
 python -m ukvat.chnames
 python -m ukvat.chnames link data/probes/peppol/cards_full.csv results/peppol/linked.csv
 ```
 
-## 13 Nov, the website route where the number is known
+## 13 Nov, the same route where I know the answer
 
-The 133 linked companies are VAT registered and I know their number, so here "not found" means the
-route failed. Same code as on the register.
+The 133 are registered and I know their number, so here "not found" means the route failed.
 
 ```
 python -m ukvat.run_sql sql/peppol_set.sql
 python -m ukvat.websites results/peppol/known_set.csv results/peppol/websites
 ```
 
-- 33 of the 133 had a site showing their own company number, against 23 of the 400 in the register
-  sample.
-- 14 strict finds, and all 14 are the same number Peppol has.
-- 1 loose find, and it is a different number from Peppol's.
-- 118 nothing.
+33 had a site showing their company number, 14 printed their VAT number on it, and all 14 are the
+number Peppol has. The one loose find is a different number. 118 nothing.
 
-On companies that do have a number the route found it for 14 of 133, and every strict find matched.
-Of the loose finds, the two I can already check (this one and Kebab City) are both somebody else's
-number.
+## 13 Nov, things too small to matter
 
-## 13 Nov, small counts
-
-- OpenStreetMap: 66,608 objects in the world carry a `ref:vatin` tag. taginfo finds 200 values
-  with GB in them.
-- Wikidata: 351 items have an EU VAT number property starting with GB.
-
-Both are too small to matter for 2 million registrations.
+OpenStreetMap has 66,608 objects with a `ref:vatin` tag in the whole world and taginfo finds 200
+values with GB in them. Wikidata has 351 items with an EU VAT number starting with GB.
 
 ## 13 Nov, public records
 
-The brief lists insolvency notices, public sector spend and procurement records. One run each.
+The brief lists insolvency notices, public sector spend and procurement.
 
 ```
 python experiments/procurement_ids.py 2026-11-03 2026-11-10 results/probes/procurement_ids.csv
@@ -162,110 +134,221 @@ python experiments/spend_headers.py results/probes/spend_headers.csv
 python experiments/spend_vat.py results/probes/spend_headers.csv results/probes/spend_vat.csv
 ```
 
-- Find a Tender, one week of notices (3 to 10 Nov): 2,464 notices, 5,529 parties. The identifier
-  schemes used are GB-PPON (4,071), GB-COH (1,608), GB-NHS (98) and a few others. None is a VAT
-  number.
-- The Gazette: 1,705,312 notices contain "Company number". "VAT No" is in 28, "VAT number" in 10,
-  "VAT registration no" in 5, "VAT registration number" in 1.
-- Spend files: one recent csv per publisher from the data.gov.uk catalogue, 314 publishers, 112 files
-  answered with a header. 6 have a column named for a VAT number. In 4 of them the column is empty,
-  in Shropshire Community Health NHS Trust's file it holds VAT amounts (2.1, 10.49, 4.4), and only St
-  Helens and Knowsley Teaching Hospitals NHS Trust fills it: 34 numbers for 38 suppliers, all 34 pass
-  the check digits. No spend file has a company number column.
+Find a Tender, the week of 3 to 10 Nov: 2,464 notices with 5,529 parties. Suppliers are identified
+by GB-PPON (4,071) and GB-COH (1,608), a few by GB-NHS and charity numbers, none by a VAT number.
+
+The Gazette: "Company number" is in 1,705,312 notices. "VAT No" in 28, "VAT number" in 10, "VAT
+registration no" in 5, "VAT registration number" in 1.
+
+Spend files were the interesting one. One recent csv per publisher from the data.gov.uk catalogue,
+112 answered. 6 have a column called something like VAT Registration Number. Four leave it empty.
+Shropshire Community Health NHS Trust's is full of VAT amounts (2.1, 10.49, 4.4). Only St Helens and
+Knowsley Teaching Hospitals NHS Trust fills it, 34 numbers for 38 suppliers, all valid. So the
+numbers are held by the buyer, and publishing them is somebody's choice.
 
 ## 13 Nov, marketplaces
 
-Amazon and eBay show a VAT number on business sellers' pages, so I looked at whether they can be
-read at all before trying anything.
+Business sellers on Amazon and eBay show a VAT number, so I read their robots.txt first. Both say
+`Disallow: /` to CCBot, Common Crawl's crawler, so no seller page is in the corpus. Other crawlers
+are allowed there, but both sites' terms forbid scraping, so I did not fetch a single seller page.
 
 ```
 python experiments/marketplace_robots.py results/probes/marketplace_robots.csv
 ```
 
-Both robots.txt files have `Disallow: /` for CCBot, Common Crawl's crawler, so none of their seller
-pages are in the corpus. A crawler under any other name is allowed by robots.txt, but both sites'
-terms forbid scraping, so I did not fetch any seller page.
+## 13 Nov, the two German numbers in VIES
 
-## 13 Nov, a German number in VIES
-
-The website route met two German VAT IDs on a German group's Impressum page. VIES on both:
+Both valid, and VIES shows "---" as the name and the address. For Germany the EU checker says a
+number exists but not whose it is, which is the part the UK gives for free.
 
 ```
 python experiments/vies_germany.py results/probes/vies_germany.csv 250965905 136632461
 ```
 
-Both valid, and for both VIES shows "---" for the name and the address. So for Germany VIES can say a
-number exists, but not whose it is.
+## 13 Nov, numbers for later
 
-## 13 Nov, numbers for Part 3 and the debates
+20,615,843 nine digit numbers pass the check digits (10,304,247 on mod 97, 10,311,596 on mod 97 plus
+55). At 3 checks a second that is 79.5 days for one application.
+
+The website route made 1,691 page requests for 533 companies, 200 MB of html, 5,388 domains looked
+up and 759 resolving. On the register that is 49 seconds of this laptop per strict find, on the
+known set 12.
 
 ```
 python experiments/checksum_space.py results/probes/checksum_space.csv
 python experiments/unit_costs.py results/probes/unit_costs.csv
 ```
 
-- 20,615,843 nine digit numbers pass the check digits (10,304,247 on mod 97, 10,311,596 on mod 97
-  plus 55). At HMRC's standard 3 requests a second that is 79.5 days for one application.
-- The website route made 1,691 page requests for the 533 companies of both runs and downloaded 200 MB
-  of html. 5,388 domains were looked up and 759 resolve. On the register that is 49 seconds of this
-  laptop per strict find, on the known set 12 seconds.
+## 13 Nov, the October crawl
 
-## 13 Nov, what the October crawl holds
-
-The brief says crawling site by site may be the wrong shape. Three questions about the October 2026
-crawl (CC-MAIN-2026-43).
-
-How many pages carry a VAT number at all. Four of the 100,000 text files, picked by md5 of a seed:
+Four of the 100,000 text files of CC-MAIN-2026-43, picked by md5:
 
 ```
 python experiments/commoncrawl_wet.py CC-MAIN-2026-43 4 results/probes/commoncrawl_wet.csv
 ```
 
-83,776 pages, 1,792 of them on .uk hosts. 172 pages have a UK VAT number that passes the check
-digits, 122 have a company number on the same page, and 117 have exactly one of each. Those are 106
-distinct VAT numbers on 107 hosts, and 105 of the company numbers are live companies.
+83,776 pages, 1,792 on .uk hosts. 172 pages have a valid UK VAT number, 122 also a company number,
+117 exactly one of each. That is 106 distinct numbers on 107 hosts.
 
-Whether the two numbers on one page belong together. HMRC's EORI API on the 106 numbers, its name
-compared with the Companies House name of the company number on the same page:
+My first script multiplied the 105 linkable numbers by 25,000 and printed 2.6 million. That is wrong,
+a footer is on every page of a site, so only pages scale with the crawl. The fix is further down.
+
+Do the two numbers on one page belong together. EORI on the 106:
 
 ```
 python experiments/commoncrawl_pairs_eori.py data/probes/commoncrawl/wet_pairs.csv results/probes/commoncrawl_pairs.csv
 ```
 
-31 have no EORI and 41 have one without a shared name. Of the 34 with a name, 29 are the same
-company, 3 are another name at the same postcode (IVC, Interlink, Pure Collection, all groups) and 2
-are another company (one of them a related company, the other a company number that is not live).
-The first run said 28. YOURDESIGN.CO.UK LIMITED against YOUR DESIGN.CO.UK LIMITED failed on a space,
-names are now compared without spaces.
+31 have no EORI, 41 have one without a shared name. Of the 34 with a name, 29 are the company on the
+page, 3 are another name at the same postcode (IVC, Interlink, Pure Collection), 2 are another
+company. It said 28 first. YOURDESIGN.CO.UK LIMITED against YOUR DESIGN.CO.UK LIMITED failed on a
+space, names are compared without spaces since.
 
-Whether the crawl has the sites I found live. The index server kept answering 504, so I read the
-index through `cluster.idx` (the first key of every block of the index) and fetched only the blocks
-I needed. It gave the same answers as the server on the four hosts I compared.
+Is the crawl a replacement for fetching. The index server answered 504 most of the time and once
+cut a line in half, so I stopped using it and read the index files through `cluster.idx` instead,
+fetching only the blocks I need. Same answers as the server on the four hosts I compared, and a
+lookup takes 0.3 seconds.
 
 ```
 python experiments/commoncrawl_coverage.py results/probes/commoncrawl_coverage.csv
-```
-
-Of the 58 sites that showed their company's own number live, 31 are in the crawl at all and 18 with
-their home page. 21 sites had a page with a VAT number next to the company number, and that page is
-in the crawl for 9 of them.
-
-How many hosts in the whole crawl have such a pair. A host with p pages in the crawl lands in a
-4 file slice with a chance of about 1 - (1 - 4/100000)^p, so every host seen counts 1 over that
-chance:
-
-```
 python experiments/commoncrawl_estimate.py 4 results/probes/commoncrawl_estimate.csv
 ```
 
-About 22,283 hosts, standard error 4,075. It assumes the pair is on every page of a host, so it is a
-floor, and 11 small hosts carry half of it.
+Of the 58 sites that showed their own company number live, 31 are in the crawl and 18 with their
+home page. 21 had the VAT page live, 9 of those pages are in the crawl. A corpus alone would have
+missed more than half.
 
-## Waiting for the hand checks
+For the whole crawl, every host seen in the slice counts as 1 over its chance of being in a four
+file slice, from its page count in the index. About 22,283 hosts with a VAT number next to a company
+number, standard error 4,075. It is a floor, because it assumes the pair is on every page, and 11
+small hosts carry half of it.
 
-`results/hmrc/to_check.csv` has 45 numbers for HMRC's web checker: the 10 from the register, the 15
-from the known set, and 20 random Peppol numbers to see how many HMRC still has live.
+## 13 Nov, evening, filed accounts
+
+My guess was that some small company accounts carry the VAT number as a tag. The first scan of a
+day of accounts said 15 files had a VAT tag. The regex was case blind and it was matching
+"DeriVATives". With the tag name read properly there are none.
 
 ```
-python -m ukvat.handcheck results/hmrc/to_check.csv results/hmrc/checks.csv
+python experiments/accounts_vat.py results/probes data/accounts/Accounts_Bulk_Data-2026-11-12.zip data/accounts/Accounts_Bulk_Data-2026-11-10.zip
 ```
+
+23,751 filings from two days. No VAT tag and no VAT number printed anywhere in the text. 1,439
+mention VAT, mostly "turnover is stated net of VAT". 5 say the company is in a VAT group (the
+contingent liability note), 4 say it is not registered: a charity, a residents' management company,
+a council's trading company and an orthodontist, which fits, those are the exempt kinds.
+
+210 of the 23,751 tag a turnover. I wanted turnover above the threshold as a second sample of
+companies that must be registered, and it is not there for small companies.
+
+## 13 Nov, evening, names and postcodes
+
+```
+python -m ukvat.run_sql sql/crowding.sql
+```
+
+3.9% of all companies share their name with another once "Ltd" is dropped, 11.4% with the looser key
+I used for Peppol. The worst are families where only the bracket differs: NAMECO (NO. x) 623 times,
+BROOKSON 468, COMPANION CARE 146, MKM BUILDING SUPPLIES 138. An invoice from "Companion Care" cannot
+be matched by name, that is the customer's problem exactly.
+
+A third of live companies (32.8%) are registered at a postcode shared with 100 or more others, 10.6%
+at one with 1,000 or more. WC2H 9JQ has 75,154 companies, EC1V 2NX 61,011.
+
+On the 29 pairs where HMRC's name was the company's own, HMRC's postcode was the registered office
+in 21. The other 8 are a trading address, and 4 of those registered offices sit at a crowded
+postcode. So in `score.py` a postcode match only counts below 100 companies, and a different postcode
+never counts against a match.
+
+## 13 Nov, evening, sites that say they are not registered
+
+The brief's hardest point is telling "not registered" from "I failed". Some businesses could just say
+it.
+
+```
+python experiments/says_not_registered.py results/probes/says_not_registered.csv
+```
+
+0 of the 1,382 pages the route fetched, 2 of the 83,776 crawl pages. One is a garden builder selling
+it as a saving, the other is a form asking "Are you VAT registered". Nobody writes it down.
+
+## 13 Nov, evening, who the other names are
+
+When HMRC's name for a number is another company, is it the owner. Companies House's persons with
+significant control, 33 files, only the owners that are companies or other legal persons kept.
+
+```
+python experiments/psc_corporate.py 2026-11-13 33 data/psc_corporate.csv
+python experiments/group_links.py results/probes/group_links.csv
+```
+
+The first run kept only corporate entities and found no link at all for the seven cases. Two things
+were missing. A housing association is a "legal person", not a corporate entity. And HMRC's name can
+be one the company does not use any more, so the other company has to be looked for under previous
+names too.
+
+After both:
+
+- Inspiring Vet Care: HMRC's name, Independent Vetcare Limited, is a former owner, found under a
+  previous name.
+- The Despatch Company and Despatch Cloud have the same owner.
+- Pure Collection Cashmere: HMRC's name is close to its former holding company, Project Pure Holdco.
+- Housing Maintenance Solutions and TORUS 62, Interlink Digital and Interlink Advertising: no owner
+  on record, but the same head office postcode.
+- EPOS Technologies and Kebab City: nothing, as it should be.
+
+## 13 Nov, evening, a number on two companies
+
+Across the 131 valid numbers found next to a company, by every route, one number shows up for two
+companies: 204979488, on two Sykes Cottages sites, for Sykes Cottages Ltd and Lake District Lodge
+Holidays Ltd. Following owners three levels up, they are the same group.
+
+```
+python experiments/cross_sources.py results/probes/cross_sources.csv
+```
+
+The sources barely overlap. 3 of the 106 crawl numbers are in Peppol, none of the 10 register sample
+numbers. The two list estimate from Peppol and the crawl slice comes to about 605,000, which is a
+rough size and not a measurement. The lists are not independent and an overlap of 3 is nothing to
+lean on.
+
+## 13 Nov, evening, ten minute checks
+
+Nominet's WHOIS for three company domains shows no registrant and no company number, only that
+Nominet validated the registrant, the registrar and the dates. It also says the .uk WHOIS stops on
+9 Feb 2027. schema.org's `vatID` is on 5 of the cached pages, with one valid UK number.
+
+```
+python experiments/small_checks.py results/probes/small_checks.csv
+```
+
+## 13 Nov, evening, one buyer's supplier list
+
+St Helens and Knowsley's spend file is the customer's situation in public, a buyer with the VAT
+number next to each supplier.
+
+```
+python experiments/nhs_ledger.py results/probes/nhs_ledger.csv results/probes/nhs_ledger
+python -m ukvat.websites results/probes/nhs_ledger/linked.csv results/probes/nhs_ledger/websites
+```
+
+34 numbers, 4 of them in Peppol. HMRC's EORI name is the same as the hospital's for the 5 that share
+one. 19 suppliers link to one company, and the website route finds the number for none of the 19.
+These are big medical suppliers. They do not print a VAT number on their sites, it is on the
+invoice.
+
+46 of the 112 spend files are from NHS bodies and 5 of those have the VAT column.
+
+## 13 Nov, evening, who registered the Peppol wave
+
+I tried to find which service provider put 106 of 200 cards in on 25 Aug 2025, from Peppol's DNS
+records. Every name I tried was NXDOMAIN, even Peppol's own test participant, so either my naming is
+wrong or the registry moved. Left open.
+
+What I did find is HMRC's policy paper of 28 Oct 2026 (gov.uk, "VAT: electronic invoicing"). VAT
+invoices have to be sent as e-invoices from 1 April 2029, Peppol is the network, and HMRC is to
+become the UK Peppol Authority. The authority today sits in Supply Chain Coordination Limited, which
+runs NHS Supply Chain, which would explain why the hospital suppliers are the ones in Peppol so far.
+
+HMRC's VAT statistics for 2024 to 2025: 2,330,400 registered traders, 234,000 new registrations and
+218,000 deregistrations in the year.
