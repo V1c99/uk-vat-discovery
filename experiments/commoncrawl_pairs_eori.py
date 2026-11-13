@@ -40,16 +40,24 @@ def main(pairs_csv, out_csv):
             verdict = "other name, same postcode"
         else:
             verdict = "other company"
-        out.append([vrn, number, host, name, a["valid"], trader, verdict])
+        same_pc = bool(trader_pc) and (postcode or "").replace(" ", "") == trader_pc.replace(
+            " ", ""
+        )
+        out.append([vrn, number, host, name, postcode, a["valid"], trader, trader_pc, same_pc,
+                    verdict])  # fmt: skip
     with open(out_csv, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(["vrn", "company_number", "host", "ch_name", "eori_valid", "eori_name",
-                    "verdict"])  # fmt: skip
+        w.writerow(["vrn", "company_number", "host", "ch_name", "ch_postcode", "eori_valid",
+                    "eori_name", "eori_postcode", "same_postcode", "verdict"])  # fmt: skip
         w.writerows(out)
     counts = {}
     for r in out:
         counts[r[-1]] = counts.get(r[-1], 0) + 1
+    same = [r for r in out if r[-1] == "same company"]
     print(len(out), counts)
+    # for the postcode rule: how often HMRC's address is still the registered office
+    print(f"same company: {len(same)}, same postcode as the registered office: "
+          f"{sum(1 for r in same if r[8])}")  # fmt: skip
 
 
 if __name__ == "__main__":

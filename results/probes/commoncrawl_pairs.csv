@@ -1,107 +1,107 @@
-vrn,company_number,host,ch_name,eori_valid,eori_name,verdict
-100594940,07413911,www.vudigital.co.uk,VU ONLINE LTD,False,,no eori
-101999507,SC201577,www.sjsuk.co.uk,SJS PROPERTY SERVICES LIMITED,True,SJS PROPERTY SERVICES LIMITED,same company
-102478005,00583965,tubewayextrusions.com,TUBEWAY (SALES) LIMITED,True,TUBEWAY (SALES) LTD,same company
-104848713,06689182,bioclad.com,BIOCLAD LIMITED,True,,"eori, no name shared"
-115141658,07746795,ivc.co.uk,INSPIRING VET CARE LIMITED,True,INDEPENDENT VETCARE LIMITED,"other name, same postcode"
-115801541,07670900,airlesspro.co.uk,AIRLESSPRO LTD,True,AIRLESSPRO LTD,same company
-116990496,08604495,soaposh.com,SOAPOSH LIMITED,True,,"eori, no name shared"
-122214037,00401414,www.jenkinsbakery.co.uk,DAVID JENKINS LIMITED,True,DAVID JENKINS LTD,same company
-125418921,07787513,www.cambrookfoods.co.uk,CAMBROOK FOODS LIMITED,True,CAMBROOK FOODS LTD,same company
-127990091,15736342,www.nayloraccountancy.com,NAYLOR ACCOUNTANCY GROUP LIMITED,True,NAYLOR ACCOUNTANCY SERVICES LTD,same company
-132529528,OC373372,www.pearsonhards.co.uk,PEARSON HARDS LLP,True,,"eori, no name shared"
-132978001,05431902,www.linkcentre.com,INTERLINK DIGITAL GROUP LIMITED,True,INTERLINK ADVERTISING LTD,"other name, same postcode"
-134224742,08446482,www.ukwristbands.com,UK WRISTBANDS LTD,True,UK WRISTBANDS LTD,same company
-143781701,02808339,ams-group.co.uk,AVON MATERIAL SUPPLIES LIMITED,True,,"eori, no name shared"
-150423549,08184586,pv-plus.co.uk,PV PLUS LIMITED,True,,"eori, no name shared"
-158527343,01135547,www.alanhoward.co.uk,ALAN HOWARD (STOCKPORT) LIMITED,True,,"eori, no name shared"
-175027317,07230689,www.forgeway.com,FORGEWAY LTD,True,,"eori, no name shared"
-184097777,12066038,www.trustedtravelreviews.co.uk,TRUSTED TRAVEL REVIEWS LIMITED,False,,no eori
-199650845,09178280,www.teachingpacks.co.uk,TEACHING IDEAS LIMITED,False,,no eori
-200381521,01129549,www.oldcreameryfurniture.com,THE OLD CREAMERY LIMITED,True,,"eori, no name shared"
-204979488,04469189,www.best-escapes.com,SYKES COTTAGES LTD,True,SYKES COTTAGES LTD,same company
-212744096,03648095,www.asllimited.co.uk,A.S.L. LIMITED,True,,"eori, no name shared"
-214577410,09615192,helmwms.com,THE DESPATCH COMPANY LTD,True,DESPATCH CLOUD LIMITED,other company
-219574486,SC359669,www.unbeatableblinds.co.uk,UNBEATABLE BLINDS LTD,False,,no eori
-230875019,09611722,www.flooringhut.co.uk,FLOORING HUT LTD,True,FLOORING HUT LTD,same company
-238771435,06131587,www.cla.org.uk,COUNTRY LAND AND BUSINESS ASSOCIATION LIMITED,False,,no eori
-239197475,10090527,compexit.co.uk,COMPEX IT LIMITED,True,,"eori, no name shared"
-242304895,01344829,britishrallychampionship.co.uk,MOTORSPORT UK ASSOCIATION LIMITED,True,,"eori, no name shared"
-248824574,08401067,kids.classroomsecrets.co.uk,CLASSROOM SECRETS LIMITED,False,,no eori
-259467318,02479069,www.sgpetchparts.co.uk,S.G. PETCH LIMITED,True,,"eori, no name shared"
-273486867,10864971,sweetneedle.co.uk,SWEET NEEDLE INDUSTRIES LTD,True,,"eori, no name shared"
-283080409,09301750,martinmosaic.com,MARTIN MOSAIC LTD,True,,"eori, no name shared"
-295738644,11311250,www.school-paper.co.uk,PAPERCUTZ WORLDWIDE LIMITED,True,,"eori, no name shared"
-307142144,11588835,www.pmpaistudio.com,PHOTOGRAPH MY PRODUCT LIMITED,False,,no eori
-312182543,10899070,www.ceilingstore.co.uk,CEILING EXPERT LTD,True,,"eori, no name shared"
-315450332,11813433,fintechforecaster.com,KALEIDO INTELLIGENCE LIMITED,True,,"eori, no name shared"
-315630330,11354996,www.evolutionfunding.com,EVOLUTION FUNDING LIMITED,True,EVOLUTION FUNDING LIMITED,same company
-320545437,06365189,www.azets.com,AZETS HOLDINGS LIMITED,True,,"eori, no name shared"
-324633810,08567765,colourapparel.co.uk,PRINTCOLOUR LIMITED,True,PRINTCOLOUR LIMITED,same company
-336942382,05386273,nanoporetech.com,OXFORD NANOPORE TECHNOLOGIES PLC,True,OXFORD NANOPORE TECHNOLOGIES PLC,same company
-339919159,11821314,thenorthyorkshiregallery.co.uk,THE NORTH YORKSHIRE GALLERY LTD,True,THE NORTH YORKSHIRE GALLERY LTD,same company
-347292286,05114575,www.applytotwam.uk,TOOLS WITH A MISSION,False,,no eori
-348608572,12591963,www.purecollection.com,PURE COLLECTION CASHMERE LIMITED,True,PROJECT PURE LIMITED,"other name, same postcode"
-352170678,05466421,www.btmksolicitors.co.uk,BTMK SOLICITORS LIMITED,False,,no eori
-380111733,12532589,www.durham-arc.org.uk,DURHAM AMATEUR ROWING CLUB 1860 LIMITED,False,,no eori
-387677329,10746977,ropeaccessservice.co.uk,S P W ALL ACCESS LIMITED,False,,no eori
-390027905,08789903,www.cityandtown.co.uk,CITY & TOWN ESTATES LTD,False,,no eori
-393770516,04116288,www.regionalstudies.org,THE REGIONAL STUDIES ASSOCIATION,True,THE REGIONAL STUDIES ASSOCIATION,same company
-398902791,00601468,rosesofdevizes.co.uk,ROSES IRONMONGERS LIMITED,True,ROSES IRONMONGERS LIMITED,same company
-410145554,13292868,thehopshoppe.co.uk,OFFBEAT BAR GROUP LTD,False,,no eori
-411487119,00831022,www.imperialengineering.co.uk,A.W.D.DWIGHT & SONS(ENGINEERS)LIMITED,True,,"eori, no name shared"
-412132163,14029619,www.car-planet.co.uk,CAR PLANET TRADING LIMITED,True,CAR PLANET TRADING LIMITED,same company
-414087317,14145721,www.doors2doors.co.uk,CASHMORES DOORS2DOORS LIMITED,False,,no eori
-421623781,09189103,www.viatrisconnect.co.uk,VIATRIS UK HEALTHCARE LIMITED,True,,"eori, no name shared"
-427386867,11283235,www.the-adv.com,THE ADV FORUM LTD,False,,no eori
-430870704,12187940,www.volunteeringsolutions.com,IMPACT EXPLORERS LTD,True,,"eori, no name shared"
-433168309,14247092,www.clipit-grooming.com,CLIPIT ENTERPRISE LTD,True,CLIPIT ENTERPRISE LTD,same company
-440760020,12507502,www.icopify.com,ICOPIFY LTD,False,,no eori
-451363269,OC307087,www.marineindustrial.co.uk,MARINE & INDUSTRIAL LLP,True,,"eori, no name shared"
-453556774,12536189,www.ada-digital.co.uk,ADA DIGITAL MARKETING LTD,False,,no eori
-464121515,14961407,www.cambridgeonlinetuition.co.uk,CAMBRIDGE ONLINE TUITION LIMITED,False,,no eori
-467836246,15733719,www.drivingheroes.co.uk,DRIVING HEROES LIMITED,False,,no eori
-471525885,14519006,preview.theactorslounge.co.uk,THE ACTORS LOUNGE LTD,False,,no eori
-476841550,01588327,www.odintactical.co.uk,,True,ODIN GROUP LTD,other company
-479819030,14637380,www.macstoreuk.com,MAC GROUP SOLUTIONS LTD,True,,"eori, no name shared"
-488579216,15027977,www.lightwork.co,LIGHTWORK HOLDING LTD,False,,no eori
-494680447,15817056,davetheseo.com,DAVE THE SEO LTD,False,,no eori
-496513361,05279035,www.somethingdifferentwholesale.com,SOMETHING DIFFERENT WHOLESALE LIMITED,True,,"eori, no name shared"
-532103108,02409444,leisurechoice.co.uk,VIRGIN EXPERIENCE DAYS LTD,False,,no eori
-570303963,04043143,compositesuk.co.uk,COMPOSITES UK LIMITED,True,COMPOSITES UK LIMITED,same company
-578372791,04401139,www.plastor.co.uk,PLASTOR LIMITED,True,PLASTOR LIMITED,same company
-597849161,02591405,www.parcel2go.com,PARCEL2GO.COM LIMITED,True,,"eori, no name shared"
-618491424,02924320,www.htkeurope.com,SUN-WA TECHNOS (UK) CONNECT SOLUTIONS LTD,True,SUN-WA TECHNOS (UK) CONNECT SOLUTIONS LIMITED,same company
-691179801,03265351,www.globalchange.com,GLOBAL CHANGE LIMITED,True,,"eori, no name shared"
-692213636,03358676,www.alumni-subscriptions.co.uk,ESS EUROPEAN SUBSCRIPTION SERVICE LIMITED,False,,no eori
-705352557,02387333,newhomes.lovell.co.uk,LOVELL PARTNERSHIPS LIMITED,True,,"eori, no name shared"
-715352550,03646844,michaelgraham.co.uk,MICHAEL GRAHAM ESTATE AGENTS LIMITED,False,,no eori
-752016461,02841010,insideoutcontracts.com,INSIDE OUT CONTRACTS LIMITED,True,,"eori, no name shared"
-762800828,05900054,www.bearingboys.co.uk,BEARINGBOYS LTD,True,,"eori, no name shared"
-766040436,02246366,kyocera-annodata.co.uk,ANNODATA LIMITED,True,,"eori, no name shared"
-785762770,07584914,mareandfoal.org,THE MARE AND FOAL SANCTUARY,True,,"eori, no name shared"
-787644667,04391834,planbconsulting.co.uk,VIA-K LIMITED,False,,no eori
-801859233,SC339086,www.neviscycles.com,NEVIS CYCLES LIMITED,True,NEVIS CYCLES LIMITED,same company
-815041270,04794244,www.edisongroup.com,EDISON INVESTMENT RESEARCH LIMITED,True,EDISON INVESTMENT RESEARCH LTD,same company
-832960420,04856064,www.gortonstudio.co.uk,NEILL GORTON PROSTHETICS STUDIO LIMITED,True,,"eori, no name shared"
-834994383,04945685,www.thestagcompany.com,THE EVENTA ENTERTAINMENT GROUP LTD,False,,no eori
-837579280,05584147,www.yourdesign.co.uk,YOURDESIGN.CO.UK LIMITED,True,YOUR DESIGN.CO.UK LIMITED,same company
-843730723,07372621,www.domex-uk.co.uk,DOMEX LIMITED,True,DOMEX LTD,same company
-843845601,00454826,www.thebabyshow.co.uk,CLARION EVENTS LIMITED,True,,"eori, no name shared"
-851056933,05411451,qmms.co.uk,QUALITY MILK MANAGEMENT SERVICES LIMITED,True,QUALITY MILK MANAGEMENT SERVICES LTD,same company
-855349007,05179829,www.rentalcars.com,BOOKING.COM TRANSPORT LIMITED,True,BOOKING.COM TRANSPORT LIMITED,same company
-859935850,05105339,www.rp-x.com,UK SPORTS PRODUCTS LIMITED,True,,"eori, no name shared"
-863721122,05432853,www.musicbeyondmainstream.org.uk,MUSIC BEYOND MAINSTREAM LIMITED,False,,no eori
-872393792,07673596,www.carolhayesmanagement.co.uk,CAROL HAYES MANAGEMENT LONDON LIMITED,True,CAROL HAYES MANAGEMENT LONDON LIMITED,same company
-876335394,01817398,www.protyre.co.uk,MICHELDEVER TYRE SERVICES LIMITED,True,,"eori, no name shared"
-880302543,05763022,www.bramptonframing.com,VALLATON LIMITED,True,,"eori, no name shared"
-880996072,05120043,www.begbies-traynorgroup.com,BTG CONSULTING PLC,True,,"eori, no name shared"
-893520114,05754892,www.mediplacements.com,THE PLACEMENT GROUP (HOLDINGS) PLC,True,,"eori, no name shared"
-916029632,06390598,www.workpsychologygroup.com,WORK PSYCHOLOGY LIMITED,False,,no eori
-924023949,05460709,sandstonetrail.co.uk,NORTHERN EYE BOOKS LIMITED,False,,no eori
-927202736,06248590,www.bluehelix.co.uk,NORBAIN HOLDINGS LIMITED,True,,"eori, no name shared"
-929361208,05956777,www.justpark.com,JUSTPARK PARKING LIMITED,True,,"eori, no name shared"
-939828072,06716035,www.buildingbetterhealthcare.com,HPCI MEDIA LIMITED,True,HPCI MEDIA LIMITED,same company
-945610716,02535199,www.worldskillsuk.org,WORLDSKILLS UK,True,,"eori, no name shared"
-992537576,07071112,www.atouchofglassyorkshire.co.uk,A TOUCH OF GLASS (SCARBOROUGH) LIMITED,False,,no eori
-998663927,07387608,motorsport-tools.com,MOTORSPORT TOOLS UK LTD,True,MOTORSPORT TOOLS UK LTD,same company
+vrn,company_number,host,ch_name,ch_postcode,eori_valid,eori_name,eori_postcode,same_postcode,verdict
+100594940,07413911,www.vudigital.co.uk,VU ONLINE LTD,EX2 4AN,False,,,False,no eori
+101999507,SC201577,www.sjsuk.co.uk,SJS PROPERTY SERVICES LIMITED,EH21 6SY,True,SJS PROPERTY SERVICES LIMITED,EH21 6SY,True,same company
+102478005,00583965,tubewayextrusions.com,TUBEWAY (SALES) LIMITED,IP2 0HN,True,TUBEWAY (SALES) LTD,IP2 0HN,True,same company
+104848713,06689182,bioclad.com,BIOCLAD LIMITED,HG3 2FN,True,,,False,"eori, no name shared"
+115141658,07746795,ivc.co.uk,INSPIRING VET CARE LIMITED,BS31 2AU,True,INDEPENDENT VETCARE LIMITED,BS31 2AU,True,"other name, same postcode"
+115801541,07670900,airlesspro.co.uk,AIRLESSPRO LTD,LN6 3YS,True,AIRLESSPRO LTD,LN6 3YS,True,same company
+116990496,08604495,soaposh.com,SOAPOSH LIMITED,PL17 8LA,True,,,False,"eori, no name shared"
+122214037,00401414,www.jenkinsbakery.co.uk,DAVID JENKINS LIMITED,SA14 9UU,True,DAVID JENKINS LTD,SA14 9UU,True,same company
+125418921,07787513,www.cambrookfoods.co.uk,CAMBROOK FOODS LIMITED,SP10 3LF,True,CAMBROOK FOODS LTD,SP10 3LF,True,same company
+127990091,15736342,www.nayloraccountancy.com,NAYLOR ACCOUNTANCY GROUP LIMITED,TN6 1DH,True,NAYLOR ACCOUNTANCY SERVICES LTD,TN4 0PG,False,same company
+132529528,OC373372,www.pearsonhards.co.uk,PEARSON HARDS LLP,KT3 3LR,True,,,False,"eori, no name shared"
+132978001,05431902,www.linkcentre.com,INTERLINK DIGITAL GROUP LIMITED,WC1N 3AX,True,INTERLINK ADVERTISING LTD,WC1N 3AX,True,"other name, same postcode"
+134224742,08446482,www.ukwristbands.com,UK WRISTBANDS LTD,BN23 6QW,True,UK WRISTBANDS LTD,BN23 6QW,True,same company
+143781701,02808339,ams-group.co.uk,AVON MATERIAL SUPPLIES LIMITED,BH21 3EG,True,,,False,"eori, no name shared"
+150423549,08184586,pv-plus.co.uk,PV PLUS LIMITED,SO51 7AA,True,,,False,"eori, no name shared"
+158527343,01135547,www.alanhoward.co.uk,ALAN HOWARD (STOCKPORT) LIMITED,SK1 4AR,True,,,False,"eori, no name shared"
+175027317,07230689,www.forgeway.com,FORGEWAY LTD,TQ12 4PH,True,,,False,"eori, no name shared"
+184097777,12066038,www.trustedtravelreviews.co.uk,TRUSTED TRAVEL REVIEWS LIMITED,DE55 6BZ,False,,,False,no eori
+199650845,09178280,www.teachingpacks.co.uk,TEACHING IDEAS LIMITED,CT16 1BL,False,,,False,no eori
+200381521,01129549,www.oldcreameryfurniture.com,THE OLD CREAMERY LIMITED,BA20 2HL,True,,,False,"eori, no name shared"
+204979488,04469189,www.best-escapes.com,SYKES COTTAGES LTD,CH1 3BQ,True,SYKES COTTAGES LTD,CH1 3BQ,True,same company
+212744096,03648095,www.asllimited.co.uk,A.S.L. LIMITED,GU1 1RB,True,,,False,"eori, no name shared"
+214577410,09615192,helmwms.com,THE DESPATCH COMPANY LTD,YO25 9FQ,True,DESPATCH CLOUD LIMITED,YO25 9DJ,False,other company
+219574486,SC359669,www.unbeatableblinds.co.uk,UNBEATABLE BLINDS LTD,G1 3NQ,False,,,False,no eori
+230875019,09611722,www.flooringhut.co.uk,FLOORING HUT LTD,BN11 4HN,True,FLOORING HUT LTD,BN13 2QU,False,same company
+238771435,06131587,www.cla.org.uk,COUNTRY LAND AND BUSINESS ASSOCIATION LIMITED,SW1X 8PQ,False,,,False,no eori
+239197475,10090527,compexit.co.uk,COMPEX IT LIMITED,B3 1RB,True,,,False,"eori, no name shared"
+242304895,01344829,britishrallychampionship.co.uk,MOTORSPORT UK ASSOCIATION LIMITED,OX27 8FY,True,,,False,"eori, no name shared"
+248824574,08401067,kids.classroomsecrets.co.uk,CLASSROOM SECRETS LIMITED,HX3 6RL,False,,,False,no eori
+259467318,02479069,www.sgpetchparts.co.uk,S.G. PETCH LIMITED,DL1 1XZ,True,,,False,"eori, no name shared"
+273486867,10864971,sweetneedle.co.uk,SWEET NEEDLE INDUSTRIES LTD,CR4 3BX,True,,,False,"eori, no name shared"
+283080409,09301750,martinmosaic.com,MARTIN MOSAIC LTD,SW17 0BB,True,,,False,"eori, no name shared"
+295738644,11311250,www.school-paper.co.uk,PAPERCUTZ WORLDWIDE LIMITED,PR7 5BW,True,,,False,"eori, no name shared"
+307142144,11588835,www.pmpaistudio.com,PHOTOGRAPH MY PRODUCT LIMITED,HU16 4DA,False,,,False,no eori
+312182543,10899070,www.ceilingstore.co.uk,CEILING EXPERT LTD,M8 8BJ,True,,,False,"eori, no name shared"
+315450332,11813433,fintechforecaster.com,KALEIDO INTELLIGENCE LIMITED,EC4M 7JN,True,,,False,"eori, no name shared"
+315630330,11354996,www.evolutionfunding.com,EVOLUTION FUNDING LIMITED,S41 9AZ,True,EVOLUTION FUNDING LIMITED,S41 9AZ,True,same company
+320545437,06365189,www.azets.com,AZETS HOLDINGS LIMITED,WC2B 5DG,True,,,False,"eori, no name shared"
+324633810,08567765,colourapparel.co.uk,PRINTCOLOUR LIMITED,B24 9PD,True,PRINTCOLOUR LIMITED,B24 9PD,True,same company
+336942382,05386273,nanoporetech.com,OXFORD NANOPORE TECHNOLOGIES PLC,OX4 4DQ,True,OXFORD NANOPORE TECHNOLOGIES PLC,OX4 4DQ,True,same company
+339919159,11821314,thenorthyorkshiregallery.co.uk,THE NORTH YORKSHIRE GALLERY LTD,TS13 4DF,True,THE NORTH YORKSHIRE GALLERY LTD,TS13 4DF,True,same company
+347292286,05114575,www.applytotwam.uk,TOOLS WITH A MISSION,IP2 0UD,False,,,False,no eori
+348608572,12591963,www.purecollection.com,PURE COLLECTION CASHMERE LIMITED,RH15 9NB,True,PROJECT PURE LIMITED,RH15 9NB,True,"other name, same postcode"
+352170678,05466421,www.btmksolicitors.co.uk,BTMK SOLICITORS LIMITED,SS14 3EZ,False,,,False,no eori
+380111733,12532589,www.durham-arc.org.uk,DURHAM AMATEUR ROWING CLUB 1860 LIMITED,DH1 3JU,False,,,False,no eori
+387677329,10746977,ropeaccessservice.co.uk,S P W ALL ACCESS LIMITED,LA1 3SW,False,,,False,no eori
+390027905,08789903,www.cityandtown.co.uk,CITY & TOWN ESTATES LTD,HA7 3QL,False,,,False,no eori
+393770516,04116288,www.regionalstudies.org,THE REGIONAL STUDIES ASSOCIATION,BN1 9SB,True,THE REGIONAL STUDIES ASSOCIATION,BN1 9SB,True,same company
+398902791,00601468,rosesofdevizes.co.uk,ROSES IRONMONGERS LIMITED,SN10 1LH,True,ROSES IRONMONGERS LIMITED,SN10 1LH,True,same company
+410145554,13292868,thehopshoppe.co.uk,OFFBEAT BAR GROUP LTD,FY8 1QS,False,,,False,no eori
+411487119,00831022,www.imperialengineering.co.uk,A.W.D.DWIGHT & SONS(ENGINEERS)LIMITED,CM20 2DP,True,,,False,"eori, no name shared"
+412132163,14029619,www.car-planet.co.uk,CAR PLANET TRADING LIMITED,WD3 3RT,True,CAR PLANET TRADING LIMITED,WD3 3RT,True,same company
+414087317,14145721,www.doors2doors.co.uk,CASHMORES DOORS2DOORS LIMITED,LE1 7RU,False,,,False,no eori
+421623781,09189103,www.viatrisconnect.co.uk,VIATRIS UK HEALTHCARE LIMITED,EN6 1TL,True,,,False,"eori, no name shared"
+427386867,11283235,www.the-adv.com,THE ADV FORUM LTD,IG8 8QH,False,,,False,no eori
+430870704,12187940,www.volunteeringsolutions.com,IMPACT EXPLORERS LTD,SM6 9RU,True,,,False,"eori, no name shared"
+433168309,14247092,www.clipit-grooming.com,CLIPIT ENTERPRISE LTD,RG21 3NZ,True,CLIPIT ENTERPRISE LTD,RG21 3NZ,True,same company
+440760020,12507502,www.icopify.com,ICOPIFY LTD,L6 5DR,False,,,False,no eori
+451363269,OC307087,www.marineindustrial.co.uk,MARINE & INDUSTRIAL LLP,NR28 9RZ,True,,,False,"eori, no name shared"
+453556774,12536189,www.ada-digital.co.uk,ADA DIGITAL MARKETING LTD,CV8 1JB,False,,,False,no eori
+464121515,14961407,www.cambridgeonlinetuition.co.uk,CAMBRIDGE ONLINE TUITION LIMITED,CB24 5LS,False,,,False,no eori
+467836246,15733719,www.drivingheroes.co.uk,DRIVING HEROES LIMITED,WR7 4FB,False,,,False,no eori
+471525885,14519006,preview.theactorslounge.co.uk,THE ACTORS LOUNGE LTD,SW19 4BJ,False,,,False,no eori
+476841550,01588327,www.odintactical.co.uk,,,True,ODIN GROUP LTD,CT5 4HG,False,other company
+479819030,14637380,www.macstoreuk.com,MAC GROUP SOLUTIONS LTD,CW5 5LS,True,,,False,"eori, no name shared"
+488579216,15027977,www.lightwork.co,LIGHTWORK HOLDING LTD,SW1H 0HW,False,,,False,no eori
+494680447,15817056,davetheseo.com,DAVE THE SEO LTD,BN1 7FP,False,,,False,no eori
+496513361,05279035,www.somethingdifferentwholesale.com,SOMETHING DIFFERENT WHOLESALE LIMITED,SA7 9LA,True,,,False,"eori, no name shared"
+532103108,02409444,leisurechoice.co.uk,VIRGIN EXPERIENCE DAYS LTD,SL8 5YS,False,,,False,no eori
+570303963,04043143,compositesuk.co.uk,COMPOSITES UK LIMITED,HP4 1EH,True,COMPOSITES UK LIMITED,HP4 1EH,True,same company
+578372791,04401139,www.plastor.co.uk,PLASTOR LIMITED,SL6 8BN,True,PLASTOR LIMITED,SL6 3NP,False,same company
+597849161,02591405,www.parcel2go.com,PARCEL2GO.COM LIMITED,BL6 4SD,True,,,False,"eori, no name shared"
+618491424,02924320,www.htkeurope.com,SUN-WA TECHNOS (UK) CONNECT SOLUTIONS LTD,WA14 2DT,True,SUN-WA TECHNOS (UK) CONNECT SOLUTIONS LIMITED,SN3 4DE,False,same company
+691179801,03265351,www.globalchange.com,GLOBAL CHANGE LIMITED,OX12 8JY,True,,,False,"eori, no name shared"
+692213636,03358676,www.alumni-subscriptions.co.uk,ESS EUROPEAN SUBSCRIPTION SERVICE LIMITED,CH44 3BQ,False,,,False,no eori
+705352557,02387333,newhomes.lovell.co.uk,LOVELL PARTNERSHIPS LIMITED,W1W 8AJ,True,,,False,"eori, no name shared"
+715352550,03646844,michaelgraham.co.uk,MICHAEL GRAHAM ESTATE AGENTS LIMITED,MK9 1FD,False,,,False,no eori
+752016461,02841010,insideoutcontracts.com,INSIDE OUT CONTRACTS LIMITED,DA1 5BU,True,,,False,"eori, no name shared"
+762800828,05900054,www.bearingboys.co.uk,BEARINGBOYS LTD,NR13 6PL,True,,,False,"eori, no name shared"
+766040436,02246366,kyocera-annodata.co.uk,ANNODATA LIMITED,HP2 7TG,True,,,False,"eori, no name shared"
+785762770,07584914,mareandfoal.org,THE MARE AND FOAL SANCTUARY,TQ12 4SA,True,,,False,"eori, no name shared"
+787644667,04391834,planbconsulting.co.uk,VIA-K LIMITED,SW11 3BB,False,,,False,no eori
+801859233,SC339086,www.neviscycles.com,NEVIS CYCLES LIMITED,IV2 5GH,True,NEVIS CYCLES LIMITED,PH33 6NG,False,same company
+815041270,04794244,www.edisongroup.com,EDISON INVESTMENT RESEARCH LIMITED,WC1R 4PS,True,EDISON INVESTMENT RESEARCH LTD,WC1V 7EE,False,same company
+832960420,04856064,www.gortonstudio.co.uk,NEILL GORTON PROSTHETICS STUDIO LIMITED,TR16 4DE,True,,,False,"eori, no name shared"
+834994383,04945685,www.thestagcompany.com,THE EVENTA ENTERTAINMENT GROUP LTD,W1T 7NF,False,,,False,no eori
+837579280,05584147,www.yourdesign.co.uk,YOURDESIGN.CO.UK LIMITED,L40 8JY,True,YOUR DESIGN.CO.UK LIMITED,L40 8JY,True,same company
+843730723,07372621,www.domex-uk.co.uk,DOMEX LIMITED,KT17 1JG,True,DOMEX LTD,KT17 1JG,True,same company
+843845601,00454826,www.thebabyshow.co.uk,CLARION EVENTS LIMITED,SW6 3JW,True,,,False,"eori, no name shared"
+851056933,05411451,qmms.co.uk,QUALITY MILK MANAGEMENT SERVICES LIMITED,BS27 3UP,True,QUALITY MILK MANAGEMENT SERVICES LTD,BA5 1DU,False,same company
+855349007,05179829,www.rentalcars.com,BOOKING.COM TRANSPORT LIMITED,M3 3BG,True,BOOKING.COM TRANSPORT LIMITED,M3 3BG,True,same company
+859935850,05105339,www.rp-x.com,UK SPORTS PRODUCTS LIMITED,MK40 4AE,True,,,False,"eori, no name shared"
+863721122,05432853,www.musicbeyondmainstream.org.uk,MUSIC BEYOND MAINSTREAM LIMITED,RG21 7QR,False,,,False,no eori
+872393792,07673596,www.carolhayesmanagement.co.uk,CAROL HAYES MANAGEMENT LONDON LIMITED,NW8 0DL,True,CAROL HAYES MANAGEMENT LONDON LIMITED,W6 7AF,False,same company
+876335394,01817398,www.protyre.co.uk,MICHELDEVER TYRE SERVICES LIMITED,SO21 3AP,True,,,False,"eori, no name shared"
+880302543,05763022,www.bramptonframing.com,VALLATON LIMITED,S40 3RG,True,,,False,"eori, no name shared"
+880996072,05120043,www.begbies-traynorgroup.com,BTG CONSULTING PLC,M3 4LY,True,,,False,"eori, no name shared"
+893520114,05754892,www.mediplacements.com,THE PLACEMENT GROUP (HOLDINGS) PLC,EN9 1JH,True,,,False,"eori, no name shared"
+916029632,06390598,www.workpsychologygroup.com,WORK PSYCHOLOGY LIMITED,LN6 3QR,False,,,False,no eori
+924023949,05460709,sandstonetrail.co.uk,NORTHERN EYE BOOKS LIMITED,CH2 4JP,False,,,False,no eori
+927202736,06248590,www.bluehelix.co.uk,NORBAIN HOLDINGS LIMITED,RG14 5TN,True,,,False,"eori, no name shared"
+929361208,05956777,www.justpark.com,JUSTPARK PARKING LIMITED,N1C 4AG,True,,,False,"eori, no name shared"
+939828072,06716035,www.buildingbetterhealthcare.com,HPCI MEDIA LIMITED,SY2 6FG,True,HPCI MEDIA LIMITED,SY2 6FG,True,same company
+945610716,02535199,www.worldskillsuk.org,WORLDSKILLS UK,EC1M 4HF,True,,,False,"eori, no name shared"
+992537576,07071112,www.atouchofglassyorkshire.co.uk,A TOUCH OF GLASS (SCARBOROUGH) LIMITED,YO12 6SE,False,,,False,no eori
+998663927,07387608,motorsport-tools.com,MOTORSPORT TOOLS UK LTD,LL53 6NH,True,MOTORSPORT TOOLS UK LTD,LL53 6NH,True,same company

@@ -5,22 +5,34 @@
 
 verdict:
   right company       live, and HMRC's name is the company's name (same key words)
-  same postcode only  live, another name at the company's postcode. A VAT group looks like this,
-                      so does a formation agent's address with thousands of companies on it,
-                      these are read one by one
-  someone else        live, another name at another postcode
+  same postcode only  live, another name at the company's postcode, and fewer than 100 companies
+                      sit at that postcode. A VAT group looks like this, read one by one
+  someone else        live, another name, and the postcode is different or is one of the
+                      crowded ones (a third of live companies sit at a postcode with 100 or more,
+                      sql/crowding.sql), so it proves nothing
   not registered      HMRC says the number is not a live registration
   not checked         no check yet
+
+A different postcode is never held against a match: on the 29 page pairs where HMRC's name was
+the company's own, the postcode differed in 8 (results/probes/commoncrawl_pairs.csv).
 """
 
 import csv
 import sys
+from functools import cache
 
 from ukvat.names import same_name
+
+CROWDED = "results/probes/crowded_postcodes.csv"
 
 
 def postcode(s):
     return (s or "").replace(" ", "").upper()
+
+
+@cache
+def crowded():
+    return {r["postcode"] for r in csv.DictReader(open(CROWDED, encoding="utf-8"))}
 
 
 def verdict(found, check):
@@ -31,7 +43,7 @@ def verdict(found, check):
     if same_name(found["company_name"] or "", check["hmrc_name"] or ""):
         return "right company"
     pc = postcode(found["postcode"])
-    if pc and pc == postcode(check["hmrc_postcode"]):
+    if pc and pc == postcode(check["hmrc_postcode"]) and pc not in crowded():
         return "same postcode only"
     return "someone else"
 

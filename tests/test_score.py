@@ -20,8 +20,14 @@ def test_same_name_in_other_words():
 
 
 def test_other_name_at_the_same_postcode_is_kept_apart():
-    # a VAT group looks like this, so does a virtual office, both get read by hand
+    # a VAT group looks like this, read by hand
     assert verdict(FOUND, check(name="TORUS 62 LTD", pc="WA8 0WN")) == "same postcode only"
+
+
+def test_a_crowded_postcode_proves_nothing():
+    # 75,154 live companies are registered at WC2H 9JQ
+    at_agent = {"company_name": "GRV MEDIA LTD", "postcode": "WC2H 9JQ"}
+    assert verdict(at_agent, check(name="SOMEONE ELSE LTD", pc="WC2H 9JQ")) == "someone else"
 
 
 def test_someone_else():
