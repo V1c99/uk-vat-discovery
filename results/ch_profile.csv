@@ -1,0 +1,57 @@
+what,value,companies
+accounts (active),MICRO ENTITY,1686224
+accounts (active),NO ACCOUNTS FILED,1342126
+accounts (active),TOTAL EXEMPTION FULL,1230643
+accounts (active),DORMANT,557408
+accounts (active),UNAUDITED ABRIDGED,148847
+accounts (active),FULL,79059
+accounts (active),SMALL,62361
+accounts (active),AUDIT EXEMPTION SUBSIDIARY,34872
+accounts (active),GROUP,27160
+accounts (active),MEDIUM,6209
+accounts (active),TOTAL EXEMPTION SMALL,1475
+accounts (active),ACCOUNTS TYPE NOT AVAILABLE,1252
+accounts (active),AUDITED ABRIDGED,1087
+accounts (active),FILING EXEMPTION SUBSIDIARY,527
+accounts (active),PARTIAL EXEMPTION,6
+category (active),Private Limited Company,4761802
+category (active),"PRI/LTD BY GUAR/NSC (Private, limited by guarantee, no share capital)",115113
+category (active),Limited Partnership,61162
+category (active),Limited Liability Partnership,47241
+category (active),Community Interest Company,43408
+category (active),Charitable Incorporated Organisation,40981
+category (active),"PRI/LBG/NSC (Private, Limited by guarantee, no share capital, use of 'Limited' exemption)",34501
+category (active),Overseas Entity,30165
+category (active),Other company type,15393
+category (active),Registered Society,10764
+category (active),Scottish Charitable Incorporated Organisation,8033
+category (active),Private Unlimited Company,4537
+category (active),Public Limited Company,3768
+category (active),Royal Charter Company,910
+category (active),Investment Company with Variable Capital,642
+category (active),United Kingdom Economic Interest Grouping,256
+category (active),Scottish Partnership,238
+category (active),Industrial and Provident Society,159
+category (active),Private Unlimited,75
+category (active),Investment Company with Variable Capital(Umbrella),67
+category (active),"PRIV LTD SECT. 30 (Private limited company, section 30 of the Companies Act)",13
+category (active),Old Public Company,8
+category (active),Investment Company with Variable Capital (Securities),8
+category (active),United Kingdom Societas,6
+category (active),Protected Cell Company,3
+category (active),Other Company Type,2
+category (active),Converted/Closed,1
+status,Active,5179256
+status,Active - Proposal to Strike off,417325
+status,Liquidation,107871
+status,In Administration,3707
+status,Live but Receiver Manager on at least one charge,2169
+status,Voluntary Arrangement,583
+status,In Administration/Administrative Receiver,396
+status,RECEIVERSHIP,182
+status,ADMINISTRATION ORDER,121
+status,ADMINISTRATIVE RECEIVER,105
+status,In Administration/Receiver Manager,52
+status,RECEIVER MANAGER / ADMINISTRATIVE RECEIVER,10
+status,VOLUNTARY ARRANGEMENT / RECEIVER MANAGER,1
+status,VOLUNTARY ARRANGEMENT / ADMINISTRATIVE RECEIVER,1

@@ -1,0 +1,28 @@
+[project]
+name = "ukvat"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "duckdb==2.0.0",
+    "requests==2.34.2",
+    "selectolax==1.0.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.2.0", "ruff==0.17.5"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
