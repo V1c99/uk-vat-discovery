@@ -210,6 +210,57 @@ python experiments/unit_costs.py results/probes/unit_costs.csv
   of html. 5,388 domains were looked up and 759 resolve. On the register that is 49 seconds of this
   laptop per strict find, on the known set 12 seconds.
 
+## 13 Nov, what the October crawl holds
+
+The brief says crawling site by site may be the wrong shape. Three questions about the October 2026
+crawl (CC-MAIN-2026-43).
+
+How many pages carry a VAT number at all. Four of the 100,000 text files, picked by md5 of a seed:
+
+```
+python experiments/commoncrawl_wet.py CC-MAIN-2026-43 4 results/probes/commoncrawl_wet.csv
+```
+
+83,776 pages, 1,792 of them on .uk hosts. 172 pages have a UK VAT number that passes the check
+digits, 122 have a company number on the same page, and 117 have exactly one of each. Those are 106
+distinct VAT numbers on 107 hosts, and 105 of the company numbers are live companies.
+
+Whether the two numbers on one page belong together. HMRC's EORI API on the 106 numbers, its name
+compared with the Companies House name of the company number on the same page:
+
+```
+python experiments/commoncrawl_pairs_eori.py data/probes/commoncrawl/wet_pairs.csv results/probes/commoncrawl_pairs.csv
+```
+
+31 have no EORI and 41 have one without a shared name. Of the 34 with a name, 29 are the same
+company, 3 are another name at the same postcode (IVC, Interlink, Pure Collection, all groups) and 2
+are another company (one of them a related company, the other a company number that is not live).
+The first run said 28. YOURDESIGN.CO.UK LIMITED against YOUR DESIGN.CO.UK LIMITED failed on a space,
+names are now compared without spaces.
+
+Whether the crawl has the sites I found live. The index server kept answering 504, so I read the
+index through `cluster.idx` (the first key of every block of the index) and fetched only the blocks
+I needed. It gave the same answers as the server on the four hosts I compared.
+
+```
+python experiments/commoncrawl_coverage.py results/probes/commoncrawl_coverage.csv
+```
+
+Of the 58 sites that showed their company's own number live, 31 are in the crawl at all and 18 with
+their home page. 21 sites had a page with a VAT number next to the company number, and that page is
+in the crawl for 9 of them.
+
+How many hosts in the whole crawl have such a pair. A host with p pages in the crawl lands in a
+4 file slice with a chance of about 1 - (1 - 4/100000)^p, so every host seen counts 1 over that
+chance:
+
+```
+python experiments/commoncrawl_estimate.py 4 results/probes/commoncrawl_estimate.csv
+```
+
+About 22,283 hosts, standard error 4,075. It assumes the pair is on every page of a host, so it is a
+floor, and 11 small hosts carry half of it.
+
 ## Waiting for the hand checks
 
 `results/hmrc/to_check.csv` has 45 numbers for HMRC's web checker: the 10 from the register, the 15
