@@ -1,0 +1,7 @@
+publisher,rows,rows_with_vat,suppliers,distinct_vat_numbers,pass_check_digits
+Animal and Plant Health Agency,16,0,11,0,0
+NHS Thames Valley ICB,3056,0,656,0,0
+Salisbury NHS Foundation Trust,11964,0,34,0,0
+Shropshire Community Health NHS Trust,10587,10587,296,3279,0
+St Helens and Knowsley Teaching Hospitals NHS Trust,674,668,38,34,34
+Veterinary Laboratories Agency,14,0,10,0,0
