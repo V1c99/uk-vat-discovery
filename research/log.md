@@ -65,7 +65,7 @@ give the same file since.
 | live guessed sites but nothing | 51 | 58 | 54 | 51 |
 | no guessed domain resolves | 41 | 35 | 37 | 46 |
 
-233 of the 400 had some live guessed site. Only 23 had one that is provably theirs, and 6 of those
+234 of the 400 had some live guessed site. Only 23 had one that is provably theirs, and 6 of those
 23 print a VAT number. Finding the site is where this breaks, not reading the number.
 
 ## 13 Nov, a second look at the ten numbers
@@ -490,3 +490,51 @@ python -m ukvat.handcheck results/hmrc/to_check_2.csv results/hmrc/checks_2.csv
 
 34 numbers: the 4 of the two disagreements, the 10 loose ones that are not Peppol's, and 20 random
 agreements to see whether agreeing with Peppol can stand in for an HMRC check.
+
+## 16 Nov, afternoon, HMRC's checker
+
+Both lists went through HMRC's web checker one number at a time. An automated browser typed them
+instead of me with `handcheck`, and the times in `checks.csv` and `checks_2.csv` are the ones HMRC
+prints on its result page (GMT). About 45 went through in 12 minutes in the morning, then the result
+page answered 429. After a pause it took a few more. In the afternoon it answered 429 again after
+only 4, so it remembers more than the last few minutes. From then on every try was at least ten
+minutes after the last 429.
+
+```
+python -m ukvat.score results/hmrc/to_check.csv results/hmrc/checks.csv results/hmrc/scored.csv
+python -m ukvat.score results/hmrc/to_check_2.csv results/hmrc/checks_2.csv results/hmrc/scored_2.csv
+python -m ukvat.run_sql sql/numbers.sql
+```
+
+The register sample first, because it is the one that says what the route does on the register.
+HMRC shows the company itself for 3 of the 6 strict finds and 1 of the 4 loose ones, which is 0.98
+finds per 100 companies once the bands are weighted. The other 3 strict finds are each something
+else:
+
+- Housing Maintenance Solutions: HMRC shows TORUS62 LIMITED at the same postcode, the housing group
+  it belongs to. Right for an invoice, wrong as a key for the company.
+- CLIMETECH LTD, incorporated in July 2025: the number is of the older kind and HMRC shows a
+  person's name at the company's address. The founder's own registration, printed on the company's
+  site. It was already on the list of numbers older than their company, committed this morning.
+- ETORROS LTD: not registered. The number sits in the band of 2020, the year the company was
+  incorporated, so I think it was the company's and was cancelled.
+
+The 3 loose ones that are not the company are EPOS Technologies (the ordering platform on Kebab
+City's terms page), Freeola (the registrar of a parked domain) and Male Transport Services for
+M.T.S Logistics.
+
+18 of the 20 random Peppol numbers are live, 2 are not registered any more.
+
+In the morning numbers.sql counted another name at the same postcode as right. I wrote that after
+the first list was checked, so I took it out again. Only HMRC showing the company counts as right
+now, and the cases in between are described one by one.
+
+On the known set every strict find that is Peppol's number and was checked came back under the
+company's name, 17 of 17. That is the 14 of the first list and 3 more of the 20 random agreements
+(3 others were already in the first list). For the two disagreements HMRC shows both of Peppol's
+numbers live under the company's name, and the old number on Virtus IT's site is not found at all.
+So in both pairs the younger number is the live one, as the age test said.
+
+The checker stopped before the rest of the second list. 24 numbers have no check yet: 14 random
+agreements, the old number on Invatech Health's site and 9 loose finds. They are not counted
+anywhere, and they go first on the next day.
