@@ -104,8 +104,9 @@ Both strict disagreements with Peppol are sites showing an older number. Virtus 
 number of the older kind, from around 2009 when the company was incorporated, and Peppol has one
 from the newest band on a card of 28 Oct 2026. Invatech Health's site has a number from a band of
 about 2014, older than the company (2019), and Peppol one from early 2026. HMRC shows both of
-Peppol's numbers live under the company's own name, and it has no registration at all for the old
-number on Virtus IT's site. In both pairs the age of the number already said which one to trust.
+Peppol's numbers live under the company's own name, and it has no registration at all for either
+of the old numbers on the sites. In both pairs the age of the number already said which one to
+trust.
 
 ETORROS LTD on the register sample is the same story. Its site shows a number in the band of its
 own incorporation year (2020), and HMRC says it is not a live registration, so I think it was the
@@ -214,8 +215,8 @@ What HMRC's checker said, each number counted once:
 | register sample, strict | 6 | 3 | 2 | 0 | 1 |
 | register sample, loose | 4 | 1 | 0 | 3 | 0 |
 | known set, strict, Peppol's number | 17 | 17 | 0 | 0 | 0 |
-| known set, strict, not Peppol's number | 1 | 0 | 0 | 0 | 1 |
-| known set, loose, not Peppol's number | 1 | 0 | 0 | 1 | 0 |
+| known set, strict, not Peppol's number | 2 | 0 | 0 | 0 | 2 |
+| known set, loose, not Peppol's number | 2 | 0 | 0 | 1 | 1 |
 
 On the register that is 1.35 strict finds per 100 companies before HMRC, weighted over the four
 bands, and 0.98 finds per 100 that HMRC shows under the company's own name.
@@ -240,9 +241,9 @@ and 20 random agreements out of the 96. The rates with their 95% intervals:
 
 HMRC's checker stopped answering before the second list was done. It answered 429 after about 45
 checks in the morning and again after a few in the afternoon, and I did not try to get round it. So
-24 numbers of that list have no check: 14 of the 20 random agreements, the old number on Invatech
-Health's site and 9 of the 10 loose finds that are not Peppol's number. They are not counted
-anywhere above. The one loose find that was checked is another company.
+22 numbers of that list have no check: 14 of the 20 random agreements and 8 of the 10 loose finds
+that are not Peppol's number. They are not counted anywhere above. Of the 2 loose finds that were
+checked, one is another company and one is not registered.
 
 So on companies that are registered under their own number the proof test is close to perfect, and
 agreeing with Peppol looks like it can stand in for a check, 17 of 17. On the register it is not,

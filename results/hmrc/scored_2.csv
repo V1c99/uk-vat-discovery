@@ -22,8 +22,8 @@ vrn,source_set,outcome,company_number,company_name,postcode,page,hmrc_name,hmrc_
 530943791,"disagreement, peppol",strict,06810018,VIRTUS IT LIMITED,OX25 1TG,,VIRTUS IT LTD,OX25 1TG,right company
 512587393,"disagreement, peppol",strict,12004003,INVATECH HEALTH LTD,BS5 6FW,,INVATECH HEALTH LTD,BS5 6FW,right company
 945274602,"disagreement, the site",strict,06810018,VIRTUS IT LIMITED,OX25 1TG,https://www.virtus-it.com/legal/,,,not registered
-184392679,"disagreement, the site",strict,12004003,INVATECH HEALTH LTD,BS5 6FW,https://invatechhealth.com/,,,not checked
-846358105,"loose, not peppol's",loose_only,09243738,CAMBRIDGE ENERGY SOLUTIONS LTD,CB4 2HY,https://www.cambridgeenergyforum.org.uk/contact.htm,,,not checked
+184392679,"disagreement, the site",strict,12004003,INVATECH HEALTH LTD,BS5 6FW,https://invatechhealth.com/,,,not registered
+846358105,"loose, not peppol's",loose_only,09243738,CAMBRIDGE ENERGY SOLUTIONS LTD,CB4 2HY,https://www.cambridgeenergyforum.org.uk/contact.htm,,,not registered
 320278039,"loose, not peppol's",loose_only,10825788,WE LOVE NUMBERS LIMITED,LE16 7AR,https://welove.co.uk/,,,not checked
 971822894,"loose, not peppol's",loose_only,13340712,ABSOLUTE FURNITURE SPRAYING LTD,HP2 7EP,https://absolutefurniture.co.uk/,,,not checked
 336169100,"loose, not peppol's",loose_only,13481129,J SUTHERLAND CONSULTING LIMITED,BS9 4PN,https://www.i-bdm.co.uk,I - BDM LIMITED,WR15 8NR,someone else

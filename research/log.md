@@ -532,9 +532,10 @@ now, and the cases in between are described one by one.
 On the known set every strict find that is Peppol's number and was checked came back under the
 company's name, 17 of 17. That is the 14 of the first list and 3 more of the 20 random agreements
 (3 others were already in the first list). For the two disagreements HMRC shows both of Peppol's
-numbers live under the company's name, and the old number on Virtus IT's site is not found at all.
-So in both pairs the younger number is the live one, as the age test said.
+numbers live under the company's name, and neither of the old numbers on the two sites is found at
+all. So in both pairs the younger number is the live one, as the age test said. Of the loose finds
+that are not Peppol's number, 2 got a check: one is another company, one is not registered.
 
-The checker stopped before the rest of the second list. 24 numbers have no check yet: 14 random
-agreements, the old number on Invatech Health's site and 9 loose finds. They are not counted
-anywhere, and they go first on the next day.
+The checker stopped before the rest of the second list. After 14:58 GMT it answered 429 to
+everything, also half an hour later. 22 numbers have no check yet: 14 random agreements and 8 loose
+finds. They are not counted anywhere, and they go first on the next day.
