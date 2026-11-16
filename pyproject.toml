@@ -10,8 +10,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest==9.2.0", "ruff==0.17.5"]
-# only experiments/commoncrawl_wet.py needs it
-probes = ["warcio==1.8.2"]
+# warcio for the Common Crawl files, matplotlib for the one chart
+probes = ["warcio==1.8.2", "matplotlib==3.11.2"]
 
 [build-system]
 requires = ["setuptools>=68"]
