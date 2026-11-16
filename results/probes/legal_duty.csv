@@ -1,0 +1,16 @@
+what,value
+registered companies,1401
+with a site showing their company number,255
+"of those, printing one VAT number",98
+"percent printing it, 95% interval",38.4 (32.7 to 44.5)
+printed number equal to Peppol's,96
+"dormant: own site, printing it","2, 1"
+"large: own site, printing it","9, 2"
+"micro: own site, printing it","105, 39"
+"new: own site, printing it","14, 5"
+"small: own site, printing it","125, 51"
+"loose_only: same as Peppol, different","3, 10"
+"strict: same as Peppol, different","96, 2"
+"own site, no number printed: in the html, not in the text I read",2
+"own site, no number printed: no number in html, the site links a pdf",17
+"own site, no number printed: not in the html at all",136
