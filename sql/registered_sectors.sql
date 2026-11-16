@@ -1,7 +1,8 @@
 -- Which kinds of company almost never show up among companies that are known to be VAT
--- registered. Known registered = Peppol cards linked to one company by name. Compared with the
--- whole frame by SIC code. Peppol leans to public sector suppliers, so this is a hint about
--- sectors, not a measurement of them.
+-- registered. Known registered = all Peppol UK cards linked to one company by name, compared
+-- with the whole frame by SIC code. Peppol leans to companies selling to other companies and to
+-- the public sector, so this is a hint about sectors, not a measurement of them.
+-- (The first run used the 2,000 cards from the search API, this one the full export.)
 --   python -m ukvat.run_sql sql/registered_sectors.sql
 
 create view frame as
@@ -14,7 +15,7 @@ where companystatus = 'Active'
 
 create view known as
 select distinct l.company_number, c.sic_1
-from read_csv('results/peppol_2000/linked.csv', header = true, all_varchar = true) l
+from read_csv('results/peppol_all/linked.csv', header = true, all_varchar = true) l
 join 'data/ch_names.parquet' c using (company_number)
 where l.matches = '1' and l.looks_like_company = 'True';
 
@@ -57,7 +58,7 @@ copy (
     select 'known registered companies' as what, (select count(*) from known)::varchar as value
     union all
     select 'frame share in codes with ratio under 0.2',
-           sum(pct_of_frame::double)::varchar || '%' from r where ratio::double < 0.2
+           round(sum(pct_of_frame::double), 2)::varchar || '%' from r where ratio::double < 0.2
     union all
     select 'those codes', string_agg(code, ' ') from r where ratio::double < 0.2
 ) to 'results/probes/registered_sectors_summary.csv' (header);

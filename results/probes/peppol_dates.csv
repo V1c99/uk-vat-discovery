@@ -1,40 +1,44 @@
 what,cards
-cards,2000
-cards with a date,1977
-year 2016,1
-year 2018,10
-year 2019,25
-year 2020,4
-year 2021,1
-year 2022,19
-year 2023,7
-year 2024,4
-year 2025,1422
-year 2026,484
-month 2025-01,1
-month 2025-02,1
-month 2025-03,2
-month 2025-05,1
-month 2025-06,1
-month 2025-07,1
-month 2025-08,1258
-month 2025-09,42
-month 2025-10,45
-month 2025-11,48
-month 2025-12,22
-month 2026-01,38
-month 2026-02,35
-month 2026-03,23
-month 2026-04,56
-month 2026-05,44
-month 2026-06,53
-month 2026-07,50
-month 2026-08,50
-month 2026-09,56
-month 2026-10,54
-month 2026-11,25
-busiest day 2025-08-25,1141
-busiest day 2025-08-22,74
-busiest day 2025-10-08,9
-busiest day 2026-11-06,7
-busiest day 2026-05-26,6
+cards,22485
+cards with a date,22230
+year 2014,1
+year 2015,3
+year 2016,8
+year 2017,1
+year 2018,99
+year 2019,269
+year 2020,44
+year 2021,44
+year 2022,206
+year 2023,109
+year 2024,77
+year 2025,15493
+year 2026,5876
+month 2025-01,14
+month 2025-02,8
+month 2025-03,18
+month 2025-04,13
+month 2025-05,10
+month 2025-06,7
+month 2025-07,16
+month 2025-08,13419
+month 2025-09,529
+month 2025-10,546
+month 2025-11,516
+month 2025-12,397
+month 2026-01,479
+month 2026-02,364
+month 2026-03,342
+month 2026-04,677
+month 2026-05,584
+month 2026-06,640
+month 2026-07,636
+month 2026-08,531
+month 2026-09,612
+month 2026-10,682
+month 2026-11,329
+busiest day 2025-08-25,12148
+busiest day 2025-08-22,844
+busiest day 2025-11-05,62
+busiest day 2025-11-04,57
+busiest day 2026-04-14,55

@@ -1,11 +1,11 @@
 code,what,pct_of_frame,pct_of_known_registered,known_registered,ratio
-98000,residents property management,1.76,0.0,0,0.0
-68100,buying and selling own real estate,4.86,0.71,10,0.15
-74990,non-trading company,0.34,0.07,1,0.21
-99999,dormant company,0.59,0.14,2,0.24
-64209,holding companies,2.28,0.57,8,0.25
-68209,letting and operating own or leased real estate,5.51,2.5,35,0.45
-47910,retail via internet,2.93,1.43,20,0.49
-70229,management consultancy,4.12,5.0,70,1.21
-82990,other business support,3.07,4.43,62,1.44
-62020,it consultancy,2.33,4.07,57,1.74
+98000,residents property management,1.76,0.06,9,0.03
+74990,non-trading company,0.34,0.05,7,0.13
+99999,dormant company,0.59,0.09,14,0.16
+68100,buying and selling own real estate,4.86,0.94,143,0.19
+64209,holding companies,2.28,0.62,95,0.27
+68209,letting and operating own or leased real estate,5.51,2.0,305,0.36
+47910,retail via internet,2.93,1.78,271,0.61
+70229,management consultancy,4.12,5.38,820,1.31
+82990,other business support,3.07,4.11,626,1.34
+62020,it consultancy,2.33,4.38,668,1.88
