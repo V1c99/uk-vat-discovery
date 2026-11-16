@@ -429,3 +429,64 @@ their share are 6.62% of the frame, companies that will mostly never have a numb
 
 Of the 390 sampled companies where nothing was found, 27 are in those two codes. That is the only
 part of "not found" I can call "probably not registered" with something behind it.
+
+## 16 Nov, the whole directory
+
+Peppol's export answered this time. The first stream died on a byte that was not UTF-8 (0xe9, an
+é from somewhere in France), now bad bytes are replaced. 9,621,402 cards read, 22,681 under 9932,
+22,485 with a valid number.
+
+```
+python experiments/peppol_export.py data/probes/peppol/uk_cards.csv
+python experiments/peppol_all.py data/probes/peppol/uk_cards.csv results/peppol_all
+```
+
+15,259 company names link to exactly one live company, 2,319 to several, 1,592 to none, and 3,315
+cards look like people. 12,148 cards were registered on 25 Aug 2025 and 844 on 22 Aug. In 2026 it
+has been between 342 and 682 new UK cards a month.
+
+I reran the number ages and the sectors on all of it. 15,359 pairs with an incorporation date,
+rank correlation 0.869 for the plus 55 kind, about 282,000 serials a year between band 20 and 50.
+362 numbers look older than their company, and HMRC's EORI record gives a name for 84 of them: 76
+are the company's own (inherited registrations), 8 are another company. The rarely registered codes
+are now four (residents' management, non trading, dormant, buying and selling own property), 7.55%
+of the frame, and 30 of the 390 "nothing found" in the register sample sit in them.
+
+## 16 Nov, how often the law is followed
+
+Regulation 6 asks a business that sells online to show its VAT number. On the 1,401 linked Peppol
+companies, all registered and all with a known number:
+
+```
+python -m ukvat.websites results/peppol_2000/known_set.csv results/peppol_2000/websites
+python experiments/legal_duty.py results/peppol_2000 results/probes/legal_duty.csv
+```
+
+255 have a site showing their company number. 98 of those print one VAT number, 38.4% (32.7 to
+44.5). Micro 39 of 105, small 51 of 125, large 2 of 9. So even a perfect site finder would stop at
+about 4 in 10 of the registered companies that have a site, and the 255 are only 18% of the 1,401.
+
+For the 155 with a site and no number, I looked at the html again. In 2 the number is there and my
+reader missed it, 17 link a pdf where it may be, 136 do not have it anywhere in the page.
+
+Strict finds equal Peppol's number 96 times out of 98. Loose finds 3 out of 13. That is the same
+story as on the first 133, just with enough companies to say it.
+
+The 2 strict disagreements are the best thing in this run. Both sites show an older number and
+Peppol a new one:
+
+- Virtus IT, incorporated 2009. The site has 945274602, a plain number from around 2009. Peppol has
+  530943791, from the newest band, and its card is from 28 Oct 2026.
+- Invatech Health, incorporated 2019. The site has 184392679, a band from about 2014, older than the
+  company. Peppol has 512587393 from early 2026, card from 14 Apr 2026.
+
+So the site is out of date, and the number's age already says which one to trust. They go to HMRC
+in the second list with everything else that disagrees.
+
+```
+python -m ukvat.run_sql sql/to_check_2.sql
+python -m ukvat.handcheck results/hmrc/to_check_2.csv results/hmrc/checks_2.csv
+```
+
+34 numbers: the 4 of the two disagreements, the 10 loose ones that are not Peppol's, and 20 random
+agreements to see whether agreeing with Peppol can stand in for an HMRC check.
