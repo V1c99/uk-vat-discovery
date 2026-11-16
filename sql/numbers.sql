@@ -87,6 +87,10 @@ union all
 select 'hmrc checks', source_set || ', ' || outcome, verdict, count(*)::varchar
 from scored group by all
 union all
+select 'hmrc checks', 'all', 'numbers not checked yet',
+       count(distinct vrn) filter (where verdict = 'not checked')::varchar
+from scored
+union all
 -- the same per kind of find, a number checked in both lists counts once
 select 'hmrc checks', 'finds, ' || kind || ', ' || outcome, verdict, count(*)::varchar
 from finds group by all
