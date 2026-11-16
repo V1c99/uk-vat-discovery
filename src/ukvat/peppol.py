@@ -69,7 +69,7 @@ def pick(numbers, n=200, seed="2026-11-13"):
     return sorted(numbers, key=lambda v: hashlib.md5((seed + v).encode()).hexdigest())[:n]
 
 
-def main(participants_csv, out_dir):
+def main(participants_csv, out_dir, n=200):
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     numbers, counts = uk_numbers(participants_csv)
@@ -78,7 +78,8 @@ def main(participants_csv, out_dir):
         w.writerow(["what", "count"])
         w.writerows(counts.items())
     rows = []
-    for vrn in pick(list(numbers)):
+    # the order is md5 of the seed and the number, so a bigger n keeps the cards of a smaller one
+    for vrn in pick(list(numbers), n):
         matches = card(numbers[vrn]).get("matches", [])
         entity = (matches[0]["entities"] or [{}])[0] if matches else {}
         names = entity.get("name") or [{}]
@@ -93,7 +94,7 @@ def main(participants_csv, out_dir):
         })  # fmt: skip
     # the full names stay in data/ for the linking. the committed copy drops names that look
     # like a person's, some cards are sole traders
-    write(RAW.parent / "cards_full.csv", rows)
+    write(RAW.parent / ("cards_full.csv" if n == 200 else f"cards_full_{n}.csv"), rows)
     public = [
         {**r, "looks_like_company": looks_like_company(r["name"]),
          "name": r["name"] if looks_like_company(r["name"]) else ""}
@@ -111,4 +112,4 @@ def write(path, rows):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 200)

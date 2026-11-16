@@ -1,0 +1,14 @@
+what,value
+pairs with an incorporation date,1512
+plain: pairs,366
+"plain: incorporation year, 10th, median, 90th percentile",1988 2004 2010
+plus55: pairs,1146
+"plus55: incorporation year, 10th, median, 90th percentile",2011 2019 2024
+plus55: rank correlation of number and incorporation date,0.87
+plain: rank correlation of number and incorporation date,0.685
+plain: number looks older than the company,22
+plus55: number looks older than the company,8
+"plus55: serials issued per year, band 20 to band 50",279314
+"older than the company, eori says: no eori",15
+"older than the company, eori says: no name shared",8
+"older than the company, eori says: same name",7
