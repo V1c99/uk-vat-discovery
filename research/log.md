@@ -352,3 +352,80 @@ runs NHS Supply Chain, which would explain why the hospital suppliers are the on
 
 HMRC's VAT statistics for 2024 to 2025: 2,330,400 registered traders, 234,000 new registrations and
 218,000 deregistrations in the year.
+
+## 16 Nov, 2,000 Peppol cards
+
+I read 2,000 random UK cards instead of 200 (the same md5 order, so the first 200 are inside). All
+2,000 have a name. 1,401 point at exactly one live company with a legal ending, 192 at several, 142
+company names at none, and 265 look like people.
+
+```
+python -m ukvat.peppol data/probes/peppol/participants.csv results/peppol_2000 2000
+python -m ukvat.chnames link data/probes/peppol/cards_full_2000.csv results/peppol_2000/linked.csv
+python experiments/peppol_dates.py data/probes/peppol/cards_full_2000.csv results/probes/peppol_dates.csv
+```
+
+The dates are stranger than I thought from 200. 1,141 of the 2,000 were registered on 25 Aug 2025
+and 74 on 22 Aug, so 1,258 in August 2025 alone. Only 71 cards are from before 2025. Since then it
+is a steady 40 to 56 a month in the sample, which is roughly 450 to 630 new UK businesses a month in
+the whole directory. Somebody put most of the UK in at once in August 2025, and the rest is a
+trickle that will turn into a flood before April 2029.
+
+## 16 Nov, a VAT number dates itself
+
+On 13 Nov I noticed the numbers on young companies all passed the check only after adding 55, and
+the old ones passed plain mod 97. My guess was that the plus 55 kind is issued in order, so its
+first digits are a date.
+
+With 1,512 pairs of a VAT number and a company number (Peppol, crawl pages, strict finds) and the
+incorporation date from the snapshot:
+
+```
+python experiments/vat_number_age.py results/probes
+```
+
+- Plus 55: 1,146 pairs, incorporated 2011 to 2024 (10th to 90th percentile), median 2019.
+- Plain: 366 pairs, 1988 to 2010, median 2004.
+- Rank correlation between the number and the incorporation date: 0.87 for plus 55 (companies from
+  2010 on), 0.685 for plain.
+
+A company registers after it is incorporated, never before, so for each band of numbers the newest
+companies holding it are the ones that registered straight away. Taking their date (90th
+percentile) as the band's issue date: band 20 about Feb 2015, 30 about Sep 2018, 40 about Mar 2022,
+50 about Oct 2025, 52 about Aug 2026. A band is 100,000 serials, so that is about 279,000 serials a
+year between band 20 and 50. HMRC's own statistics say 234,000 new registrations in 2024 to 2025. I
+did not expect it to land that close.
+
+The chart (`results/probes/vat_number_age.png`) shows more than I was looking for. The plain numbers
+climb a sharp edge from about 1990 to 2010 and stop at the top of the seven digit range, and the
+plus 55 numbers start again from the bottom in 2010 and climb their own edge to now. It looks like
+HMRC ran out of numbers on the old check around 2010 and started a second series.
+
+What it gives, without asking HMRC anything:
+
+- A number far older than the company it is printed for is suspicious. 30 pairs are like that.
+  The EORI API knows the name for 7 of them and all 7 are the company's own, for example PRICE
+  PLASTERING LIMITED, incorporated 2019 with an old plain number. That is a sole trader who
+  incorporated and kept the registration, which HMRC allows. So an old number on a young company is
+  either an inherited registration or a wrong link, and the EORI name says which.
+- The top of the range says how many numbers HMRC has issued, today.
+- It changes the checksum debate. 20.6 million numbers pass the check, but the issued ones sit in a
+  band that grows by about a quarter of a million a year, and the dates of that band can be read off
+  public data. I think that is a reason HMRC closed the open API.
+
+## 16 Nov, sectors that do not register
+
+Known registered companies (the 1,401 linked Peppol cards) against the whole frame, by SIC code:
+
+```
+python -m ukvat.run_sql sql/registered_sectors.sql
+```
+
+Residents' property management (98000) is 1.76% of the frame and none of the 1,401. Buying and
+selling own real estate (68100) is 4.86% of the frame and 0.71% of the known ones. Holding companies,
+dormant and non trading are a quarter of their share. IT consultancy, business support and management
+consultancy are over represented, which is Peppol's B2B lean. Together the two codes under a fifth of
+their share are 6.62% of the frame, companies that will mostly never have a number.
+
+Of the 390 sampled companies where nothing was found, 27 are in those two codes. That is the only
+part of "not found" I can call "probably not registered" with something behind it.
