@@ -539,3 +539,28 @@ that are not Peppol's number, 2 got a check: one is another company, one is not 
 The checker stopped before the rest of the second list. After 14:58 GMT it answered 429 to
 everything, also half an hour later. 22 numbers have no check yet: 14 random agreements and 8 loose
 finds. They are not counted anywhere, and they go first on the next day.
+
+## 17 Nov, the rest of the second list
+
+The 22 numbers left went through the web checker the same way as the others, one at a time. 11 on
+the evening of 16 Nov once the 429 had passed, and 11 on the evening of 17 Nov, without a 429.
+
+```
+python -m ukvat.score results/hmrc/to_check_2.csv results/hmrc/checks_2.csv results/hmrc/scored_2.csv
+python -m ukvat.run_sql sql/numbers.sql
+```
+
+All 20 random agreements come back under the company's name. With the first list that is 31 of 31
+strict finds that are Peppol's number (89.0% to 100%). So on registered companies a strict find
+that agrees with Peppol does not need a check of its own. The 2 that disagree were the old numbers
+on the sites, see 16 Nov.
+
+None of the 10 loose finds that are not Peppol's number is the company. 6 are another company, and
+mostly the one that owns the obvious domain: crystalclear.co.uk is CRYSTAL CLEAR INTERNATIONAL and
+not Crystal Clear Consulting, welove.co.uk is SIMPLY DESIGN GROUP and not We Love Numbers, and
+ppip.co.uk ends on the terms of PEGGY PORSCHEN BELGRAVIA. 3 are not registered at all. The last one
+is SCHOLARY LIMITED, where durdenmyers.co.uk ends, at the same postcode as Durden-Myers & Co, so
+probably the same people and still not the company. 0 of 10, loose finds stay out of every count.
+
+HMRC's postcode is not the registered office for 20 of the 49 numbers it shows under the company's
+own name, so a different postcode still proves nothing.

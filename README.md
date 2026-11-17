@@ -12,7 +12,7 @@ drawn at random, weighted by how many companies each size band stands for, that 
 finds per 100, and HMRC shows 0.98 per 100 under the company's own name. Where a page proves whose
 number it is, with the company's registration number next to it, the number is usually right: on
 registered companies it was Peppol's number 96 times out of 98, and HMRC showed the company for
-all 17 of those I checked. On the register sample it was messier. HMRC showed the company itself
+all 31 of those I checked. On the register sample it was messier. HMRC showed the company itself
 for 3 of the 6 strict finds, and the other 3 were a VAT group's number, the founder's own
 registration and a number that is not live any more.
 
@@ -214,9 +214,9 @@ What HMRC's checker said, each number counted once:
 |---|---|---|---|---|---|
 | register sample, strict | 6 | 3 | 2 | 0 | 1 |
 | register sample, loose | 4 | 1 | 0 | 3 | 0 |
-| known set, strict, Peppol's number | 17 | 17 | 0 | 0 | 0 |
+| known set, strict, Peppol's number | 31 | 31 | 0 | 0 | 0 |
 | known set, strict, not Peppol's number | 2 | 0 | 0 | 0 | 2 |
-| known set, loose, not Peppol's number | 2 | 0 | 0 | 1 | 1 |
+| known set, loose, not Peppol's number | 10 | 0 | 1 | 6 | 3 |
 
 On the register that is 1.35 strict finds per 100 companies before HMRC, weighted over the four
 bands, and 0.98 finds per 100 that HMRC shows under the company's own name.
@@ -237,22 +237,24 @@ and 20 random agreements out of the 96. The rates with their 95% intervals:
 |---|---|---|
 | register sample, strict | 3 of 6 | 18.8% to 81.2% |
 | register sample, loose | 1 of 4 | 4.6% to 69.9% |
-| known set, strict, Peppol's number | 17 of 17 | 81.6% to 100% |
+| known set, strict, Peppol's number | 31 of 31 | 89.0% to 100% |
+| known set, strict, all checked | 31 of 33 | 80.4% to 98.3% |
+| known set, loose, not Peppol's number | 0 of 10 | 0% to 27.8% |
 
-HMRC's checker stopped answering before the second list was done. It answered 429 after about 45
-checks in the morning and again after a few in the afternoon, and I did not try to get round it. So
-22 numbers of that list have no check: 14 of the 20 random agreements and 8 of the 10 loose finds
-that are not Peppol's number. They are not counted anywhere above. Of the 2 loose finds that were
-checked, one is another company and one is not registered.
+HMRC's checker answered 429 after about 45 checks on the morning of 16 Nov and again after a few in
+the afternoon. I did not try to get round it, and the rest of the second list went through slowly
+that evening and the next one. None of the 10 loose finds that are not Peppol's number is the
+company. 6 are another company, mostly the one that owns the obvious domain, 3 are not registered,
+and 1 is another name at the same postcode.
 
 So on companies that are registered under their own number the proof test is close to perfect, and
-agreeing with Peppol looks like it can stand in for a check, 17 of 17. On the register it is not,
-and the reason is the population more than the reading. Of the 3 strict finds that are not the company, one is a group's
-number (TORUS62 for Housing Maintenance Solutions, at the same head office), one is the founder's
-own registration on CLIMETECH LTD's site, and one is a number HMRC no longer has (ETORROS LTD). The
-age test had put the second on its list of numbers older than their company before the check. Six
-finds is too few to say how often this happens on the whole register, and it is the weakest number
-in this proof of concept.
+agreeing with Peppol can stand in for a check, 31 of 31. On the register it is not, and the reason
+is the population more than the reading. Of the 3 strict finds that are not the company, one is a
+group's number (TORUS62 for Housing Maintenance Solutions, at the same head office), one is the
+founder's own registration on CLIMETECH LTD's site, and one is a number HMRC no longer has (ETORROS
+LTD). The age test had put the second on its list of numbers older than their company before the
+check. Six finds is too few to say how often this happens on the whole register, and it is the
+weakest number in this proof of concept.
 
 ### What these numbers do not capture
 
