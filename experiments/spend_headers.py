@@ -1,7 +1,6 @@
-"""Do public sector spend files name a supplier's VAT number. One recent csv per publisher from
-the data.gov.uk catalogue ("spend over 500" and "over 25000"), only the header line is read.
+"""Which public sector spend files have a supplier VAT number column. Only the header line is read.
 
-    python experiments/spend_headers.py results/probes/spend_headers.csv
+python experiments/spend_headers.py results/probes/spend_headers.csv
 """
 
 import csv

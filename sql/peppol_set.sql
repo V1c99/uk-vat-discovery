@@ -1,7 +1,5 @@
 -- The known set: Peppol cards with a company's name that points at exactly one live company.
--- Their VAT number is known before the website route looks, so a miss there means the route
--- failed, not that the company has no number. A card with a person's name is left out, a sole
--- trader called John Smith is not JOHN SMITH LTD.
+-- A card with a person's name is left out, a sole trader called John Smith is not JOHN SMITH LTD.
 
 copy (
     select case

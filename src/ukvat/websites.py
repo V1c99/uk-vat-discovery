@@ -1,6 +1,5 @@
-"""The website route, company first. For each sampled company: guess domains, keep the ones that
-resolve, read the home page and up to four legal or contact pages, and pull out VAT candidates and
-company numbers.
+"""The website route, company first: guessed domains, the home page and up to four legal or contact
+pages, VAT candidates and company numbers.
 
     python -m ukvat.websites sample/register.csv results/websites
 """

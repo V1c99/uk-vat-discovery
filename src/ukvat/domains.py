@@ -1,8 +1,4 @@
-"""Guessing a company's website from its registered name.
-
-Companies House has no websites, so this stands in for the company to website links a data
-company already holds. Its recall is a floor, the company number check keeps it honest.
-"""
+"""Guessing a company's website from its registered name."""
 
 from ukvat.names import core_words, words
 

@@ -1,10 +1,6 @@
-"""Every UK business card registered under its VAT number (scheme 9932), from the directory's
-full export. One download in place of 22,000 lookups against the search API.
+"""Every UK card under scheme 9932 from Peppol's full export, 12.6 GB unpacked, read as a stream.
 
-The export is 12.6 GB unpacked and sorted by scheme, so the 9932 rows sit near the end. It is
-read as a stream and nothing else is kept.
-
-    python experiments/peppol_export.py data/probes/peppol/uk_cards.csv
+python experiments/peppol_export.py data/probes/peppol/uk_cards.csv
 """
 
 import csv

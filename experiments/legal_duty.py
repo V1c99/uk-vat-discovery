@@ -1,9 +1,5 @@
-"""How often a company that is VAT registered, and has a site provably its own, prints the number
-there. Regulation 6(1)(g) of the E-Commerce Regulations 2002 asks for it. The companies are the
-Peppol known set, so all of them are registered and their number is known.
-
-For the sites that show the company number but no VAT number, the cached html is read again to see
-whether the number was there and my reader missed it (in a script, an attribute, a pdf link).
+"""How often a registered company with its own site prints its VAT number there, on the Peppol
+known set. Sites without one get their cached html read again.
 
     python experiments/legal_duty.py results/peppol_2000 results/probes/legal_duty.csv
 """
@@ -37,7 +33,6 @@ def cached_html(url):
 
 
 def missed(sites_rows, vrn):
-    """Where the known number is in the raw html of an own site the reader said had none."""
     for s in sites_rows:
         html = cached_html(f"https://{s['domain']}/") or cached_html(f"http://{s['domain']}/")
         if re.search(r"\s?".join(vrn), html):

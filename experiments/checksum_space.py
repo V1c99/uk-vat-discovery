@@ -1,7 +1,6 @@
-"""How many 9 digit numbers pass the VAT check digits. For the debate about pointing the
-checksum at HMRC's checker.
+"""How many 9 digit numbers pass the VAT check digits.
 
-    python experiments/checksum_space.py results/probes/checksum_space.csv
+python experiments/checksum_space.py results/probes/checksum_space.csv
 """
 
 import csv

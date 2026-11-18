@@ -1,5 +1,5 @@
-"""Records my checks in HMRC's VAT checker. It does not touch HMRC: I type each number into
-https://www.gov.uk/check-uk-vat-number myself and this only asks what the page said.
+"""Records the checks done in HMRC's VAT checker (gov.uk/check-uk-vat-number). It never contacts
+HMRC itself.
 
     python -m ukvat.handcheck results/hmrc/to_check.csv results/hmrc/checks.csv
 """

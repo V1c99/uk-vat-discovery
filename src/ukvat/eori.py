@@ -1,8 +1,6 @@
-"""HMRC's EORI checker, the open one (no login). A VAT registered trader's EORI is GB, the VAT
-number and 000, so a found VAT number can be looked at a second way. Only ever called on numbers
-already found, ten per request, never to try numbers out.
+"""HMRC's open EORI checker, only on numbers already found, ten per request.
 
-    python -m ukvat.eori results/websites/companies.csv results/eori/websites.csv
+python -m ukvat.eori results/websites/companies.csv results/eori/websites.csv
 """
 
 import csv

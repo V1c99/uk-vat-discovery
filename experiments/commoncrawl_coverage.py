@@ -1,9 +1,6 @@
-"""Are the sites where I found a company's own number also in Common Crawl, and is the page with
-the VAT number there. If they are, a bulk corpus could replace crawling site by site.
+"""Are the sites that showed their company number in Common Crawl, and is their VAT page there.
 
-The index server timed out on most lookups, so this reads the index files through ccindex.py.
-
-    python experiments/commoncrawl_coverage.py results/probes/commoncrawl_coverage.csv
+python experiments/commoncrawl_coverage.py results/probes/commoncrawl_coverage.csv
 """
 
 import csv
@@ -22,7 +19,7 @@ def host(url):
 
 
 def key(url):
-    # pages compared without scheme, www and a trailing slash, so the home page is just the host
+    # no scheme, www or trailing slash
     return host(url) + urlsplit(url).path.rstrip("/")
 
 

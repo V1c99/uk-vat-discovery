@@ -1,6 +1,5 @@
 -- The register sample. Live companies only, dormant ones and overseas entities out, four strata
--- by accounts category, 100 companies each. Sorted by md5 of a seed and the company number, so
--- anyone with the same snapshot draws the same 400 without depending on duckdb's random numbers.
+-- by accounts category, 100 companies each, in md5 order of a seed and the company number.
 
 create view ch as
 select * from read_csv('data/ch/BasicCompanyDataAsOneFile-*.csv',

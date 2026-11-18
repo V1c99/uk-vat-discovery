@@ -1,10 +1,6 @@
-"""Two ten minute questions.
+"""Nominet's WHOIS for three company domains, and schema.org's vatID on the cached pages.
 
-1. Does Nominet's WHOIS show which company holds a .uk domain. If it did, a guessed domain could
-   be proven without the company number in the footer.
-2. Do company pages carry schema.org's vatID, the field made for this.
-
-    python experiments/small_checks.py results/probes/small_checks.csv
+python experiments/small_checks.py results/probes/small_checks.csv
 """
 
 import csv

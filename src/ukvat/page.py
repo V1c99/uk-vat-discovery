@@ -5,7 +5,7 @@ from urllib.parse import urljoin, urlsplit
 
 from selectolax.lexbor import LexborHTMLParser as HTMLParser
 
-# the pages where the law puts the company and VAT details, in practice
+# where sites put the company and VAT details
 FOLLOW = re.compile(r"contact|about|terms|privacy|legal|imprint|company|policy|conditions", re.I)
 
 # "Company No. 01234567", "Registered in England No 1234567", "Reg. No: SC123456"
@@ -27,8 +27,7 @@ def text_of(html):
     return re.sub(r"\s+", " ", body.text(separator=" ")).strip()
 
 
-# TODO: terms often sit in a pdf and some footers are an image. both are skipped, so a site
-# counted as "no vat number" may just have it where this cannot read
+# TODO: pdf terms and image footers are not read, a "no vat number" site may have it there
 def links_to_follow(html, base_url, limit=4):
     host = urlsplit(base_url).netloc
     out = []

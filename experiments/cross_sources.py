@@ -1,11 +1,6 @@
-"""Two checks that need no HMRC call.
+"""Numbers found for more than one company, and how much the sources overlap.
 
-1. A number that turns up for several unrelated companies is a platform's or an agent's, not
-   theirs (EPOS Technologies' number was on kebabcity.com's terms page).
-2. How much the sources overlap. Every number two independent sources agree on is evidence, and
-   the size of the overlap says something about how big the whole thing is.
-
-    python experiments/cross_sources.py results/probes/cross_sources.csv
+python experiments/cross_sources.py results/probes/cross_sources.csv
 """
 
 import csv
@@ -18,7 +13,6 @@ from group_links import Register
 
 
 def found_pairs():
-    """(vrn, company_number, where) for every valid number found next to a company."""
     out = []
     for f in glob("results/**/candidates.csv", recursive=True):
         for r in csv.DictReader(open(f, encoding="utf-8")):
@@ -45,9 +39,7 @@ def main(out_csv):
     crawl = {v for v, _, w in pairs if w == "crawl page"}
     websites = {v for v, _, w in pairs if w == "websites"}
     both = len(crawl & peppol)
-    # Chapman's version of the two list estimate. The lists are not independent (both lean to
-    # businesses that are online and sell to other businesses), and with an overlap this small
-    # it is a rough size, not a measurement
+    # Chapman's two list estimate. The lists are not independent and overlap by 3, a rough size
     chapman = round((len(peppol) + 1) * (len(crawl) + 1) / (both + 1) - 1)
     rows = [
         ("valid numbers found next to a company, all routes", len(companies)),

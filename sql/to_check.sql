@@ -1,7 +1,6 @@
--- Every number that needs a check in HMRC's VAT checker, with the page it came from so the
--- evidence can be opened next to the check. I do these by hand: python -m ukvat.handcheck
+-- Every number that needs a check in HMRC's VAT checker, with the page it came from.
 --   register sample: what the website route found on the 400
---   peppol known set: what it found on the 134 companies whose number Peppol already gave
+--   peppol known set: what it found on the 133 companies whose number Peppol already gave
 --   peppol random 20: Peppol's own numbers, to see how many HMRC still has live
 
 copy (

@@ -1,7 +1,6 @@
-"""What VIES says about a German VAT ID. The two numbers are the ones the website route met on a
-German group's Impressum page (results/websites/candidates.csv, E.R.K SYSTEMS LIMITED).
+"""What VIES says about the two German VAT IDs on E.R.K SYSTEMS' Impressum page.
 
-    python experiments/vies_germany.py results/probes/vies_germany.csv 250965905 136632461
+python experiments/vies_germany.py results/probes/vies_germany.csv 250965905 136632461
 """
 
 import csv

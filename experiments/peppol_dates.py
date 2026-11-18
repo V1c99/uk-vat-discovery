@@ -1,5 +1,4 @@
-"""When the UK cards in Peppol were registered. 106 of the first 200 had the same day, 25 Aug 2025,
-which looked like one provider putting all its customers in at once.
+"""When the UK cards in Peppol were registered.
 
     python experiments/peppol_dates.py data/probes/peppol/cards_full_2000.csv \
         results/probes/peppol_dates.csv

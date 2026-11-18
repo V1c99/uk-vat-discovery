@@ -1,7 +1,6 @@
-"""What the website route cost on this laptop, per company, for Part 3. Read from the files the
-runs left behind, nothing is fetched again.
+"""What the website route cost on this laptop per company, from the files the runs left.
 
-    python experiments/unit_costs.py results/probes/unit_costs.csv
+python experiments/unit_costs.py results/probes/unit_costs.csv
 """
 
 import csv

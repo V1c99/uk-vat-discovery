@@ -1,6 +1,4 @@
-"""How often a VAT number and a company number on the same page belong together. For the pairs
-from the Common Crawl slice, HMRC's open EORI API gives a name for the traders who agreed to share
-it, and that name is compared with the Companies House name of the company number on the page.
+"""Do the VAT number and the company number on one crawl page belong together, by the EORI name.
 
     python experiments/commoncrawl_pairs_eori.py data/probes/commoncrawl/wet_pairs.csv \
         results/probes/commoncrawl_pairs.csv

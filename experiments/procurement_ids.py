@@ -1,7 +1,6 @@
-"""Which identifiers do UK procurement notices carry for suppliers. Find a Tender's OCDS feed,
-one week of notices. Looking for any VAT scheme next to the company number.
+"""Which identifiers Find a Tender's notices carry for suppliers, one week of the OCDS feed.
 
-    python experiments/procurement_ids.py 2026-11-03 2026-11-10 results/probes/procurement_ids.csv
+python experiments/procurement_ids.py 2026-11-03 2026-11-10 results/probes/procurement_ids.csv
 """
 
 import collections

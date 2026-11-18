@@ -1,10 +1,6 @@
-"""The Peppol Directory, the e-invoicing network's public list of who can receive invoices.
+"""The Peppol Directory. Under scheme 9932 a UK business's identifier is its VAT number.
 
-In Peppol a UK business can be registered under scheme 9932, which is its VAT number. That makes
-it a source of VAT numbers that does not come from websites, and a set where I know the right
-answer before I look.
-
-    python -m ukvat.peppol data/probes/peppol/participants.csv results/peppol
+python -m ukvat.peppol data/probes/peppol/participants.csv results/peppol
 """
 
 import csv

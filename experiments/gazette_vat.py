@@ -1,7 +1,6 @@
-"""How many Gazette notices mention a VAT number at all. The Gazette's own search, a few ways
-of writing it, the totals only.
+"""How many Gazette notices mention a VAT number, from the Gazette's own search.
 
-    python experiments/gazette_vat.py results/probes/gazette_vat.csv
+python experiments/gazette_vat.py results/probes/gazette_vat.csv
 """
 
 import csv

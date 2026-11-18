@@ -1,9 +1,5 @@
-"""Which companies are controlled by another company. Companies House publishes "persons with
-significant control" as 33 zip files of json lines. Only the lines where the controller is
-itself a company are kept.
-
-I need this for the cases where HMRC's name for a VAT number is not the company I found it for.
-If that name is the company's owner, the number is a group's number and not a mistake.
+"""Companies controlled by another company or legal person, from Companies House's persons with
+significant control files.
 
     python experiments/psc_corporate.py 2026-11-13 33 data/psc_corporate.csv
 """
@@ -18,8 +14,7 @@ import requests
 
 BASE = "https://download.companieshouse.gov.uk"
 RAW = Path("data/psc")
-# a housing association or a council is a "legal person", not a corporate entity. The first run
-# kept only corporate entities and missed Torus, which owns one of the cases
+# a housing association is a "legal person", not a corporate entity. The first run missed Torus
 KINDS = (b"corporate-entity-person-with-significant-control",
          b"legal-person-person-with-significant-control")  # fmt: skip
 

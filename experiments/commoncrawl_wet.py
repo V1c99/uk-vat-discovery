@@ -1,6 +1,5 @@
-"""A slice of Common Crawl's text files (October 2026): how many pages carry a UK VAT number, and
-how many carry one next to a company number. Multiplied up, that is what a full harvest of one
-crawl could give, for Part 3.
+"""Pages in a slice of Common Crawl's text files with a UK VAT number, and with a company number
+too.
 
     python experiments/commoncrawl_wet.py CC-MAIN-2026-43 4 results/probes/commoncrawl_wet.csv
 """
@@ -94,8 +93,7 @@ def main(crawl, k, out_csv):
         ("distinct vat numbers in clean pairs", distinct_vrn),
         ("distinct vat numbers whose company number is a live company", linked),
         ("distinct hosts in clean pairs", len({p[2] for p in pairs})),
-        # pages scale with the crawl, distinct numbers do not, a footer is on every page of a
-        # site, so only the page count is multiplied up
+        # only pages scale with the crawl, a footer repeats on every page of a site
         ("pages with both, times the share of the crawl not read", round(totals[3] * share)),
         ("seconds", round(time.time() - started)),
     ]  # fmt: skip

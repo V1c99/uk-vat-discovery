@@ -30,12 +30,10 @@ LEGAL = set(
 
 
 def looks_like_company(name):
-    """A name with no legal ending is often a sole trader, a person's name. Those are not
-    written to anything committed."""
+    """No legal ending, often a sole trader. Not written to anything committed."""
     return bool(LEGAL & set(words(name)))
 
 
 def same_name(a, b):
-    """Loose comparison for HMRC's registered name against Companies House. Spaces do not count,
-    YOURDESIGN.CO.UK LIMITED and YOUR DESIGN.CO.UK LIMITED were the same company."""
+    """Spaces do not count, YOUR DESIGN.CO.UK LIMITED is YOURDESIGN.CO.UK LIMITED."""
     return "".join(core_words(a)) == "".join(core_words(b))

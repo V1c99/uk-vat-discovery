@@ -1,12 +1,7 @@
-"""France, where a company's VAT number is worked out from its SIREN: FR, a two digit key, then
-the SIREN. Two live SARL or SAS from each of ten departements, read from the state's open company
-search, the key computed here, then each number in VIES. Where the search shows a different
-number, that one goes to VIES too.
+"""France, the VAT number computed from the SIREN and checked in VIES. Saved answers in
+data/probes/vies are reused, a rerun only asks again for the ones that got none.
 
     python experiments/vies_france.py results/probes/vies_france.csv
-
-Answers already saved in data/probes/vies are reused, so a second run only asks VIES again for
-the numbers that got no answer.
 """
 
 import csv
@@ -23,7 +18,7 @@ VIES = "https://ec.europa.eu/taxation_customs/vies/rest-api/ms/FR/vat/{}"
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; uk-vat-research/0.1)"}
 RAW = Path("data/probes/vies")
 DEPARTEMENTS = ("01", "13", "22", "31", "44", "59", "63", "67", "69", "75")
-# France's side answers these when it is busy, they are not an answer about the number
+# France's side is busy, not an answer about the number
 BUSY = ("MS_MAX_CONCURRENT_REQ", "MS_UNAVAILABLE", "TIMEOUT", "SERVICE_UNAVAILABLE")
 
 
@@ -33,13 +28,13 @@ def fr_vat(siren):
 
 
 def two_from(dep):
-    # a page picked by md5, so it is not always the first companies the search returns
+    # page picked by md5
     page = int(hashlib.md5(f"2026-11-18{dep}".encode()).hexdigest(), 16) % 40 + 1
     params = {"departement": dep, "etat_administratif": "A", "categorie_entreprise": "PME",
               "nature_juridique": "5499,5710", "per_page": 25, "page": page}  # fmt: skip
     r = requests.get(SEARCH, params=params, headers=HEADERS, timeout=60)
     r.raise_for_status()
-    # the filter also matches branches, only companies with their head office there are kept
+    # the filter matches branches too, only head offices are kept
     return [c for c in r.json()["results"] if c["siege"].get("departement") == dep][:2]
 
 

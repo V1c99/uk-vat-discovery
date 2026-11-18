@@ -1,8 +1,5 @@
--- Two ways the register makes matching harder than it looks.
--- Names: how many companies share their name with another company once "Ltd" or "Limited" is
--- dropped, and with the looser key the Peppol link used.
--- Postcodes: how many companies sit at a postcode shared with hundreds of others, which is what
--- a formation agent's or an accountant's address looks like.
+-- Names shared by more than one company, once "Ltd" or "Limited" is dropped and with the looser
+-- key the Peppol link used. Postcodes shared by 100 or more companies.
 --   python -m ukvat.run_sql sql/crowding.sql
 
 create view names as select * from 'data/ch_names.parquet';

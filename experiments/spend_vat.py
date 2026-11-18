@@ -1,7 +1,6 @@
-"""The spend files that do have a VAT number column: how full it is and whether the numbers pass
-the check digits. Downloads each file whole into data/probes/spend/.
+"""How full the VAT number columns are, and whether the numbers pass the check digits.
 
-    python experiments/spend_vat.py results/probes/spend_headers.csv results/probes/spend_vat.csv
+python experiments/spend_vat.py results/probes/spend_headers.csv results/probes/spend_vat.csv
 """
 
 import csv

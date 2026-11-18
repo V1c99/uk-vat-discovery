@@ -4,8 +4,7 @@ import re
 
 WEIGHTS = (8, 7, 6, 5, 4, 3, 2)
 
-# "VAT" near a number, then the number itself. GB is optional because many footers drop it.
-# Branch traders add three digits, those are kept apart because HMRC checks the first nine.
+# GB is optional, many footers drop it. Branch traders add three digits, HMRC checks the first nine
 NEAR_VAT = re.compile(
     r"\bVAT\b[^0-9]{0,40}?(?:GB)?[\s:.]*((?:\d[\s.-]?){8}\d)(?:[\s.-]?(\d{3}))?(?!\d)",
     re.I,
@@ -27,20 +26,13 @@ def check_digits_ok(vrn):
 
 
 def foreign_prefix(text, start):
-    """True if the number is written after another country's code, like DE 250965905.
-
-    German VAT IDs are also 9 digits. The check digits caught them on the first run, this
-    drops them before that.
-    """
+    """True if another country's code comes before the number, like DE 250965905."""
     m = re.search(r"\b([A-Z]{2})[\s:.]*$", text[max(0, start - 6) : start])
     return m is not None and m.group(1) not in ("GB", "XI")
 
 
 def find_candidates(text):
-    """All 9 digit numbers next to the word VAT, or written as GB plus 9 digits.
-
-    Returns (vrn, how, passes_check) with each vrn once, in the order they appear.
-    """
+    """Numbers next to the word VAT or after GB, each once, as (vrn, how, passes_check)."""
     seen = {}
     for m in NEAR_VAT.finditer(text):
         if foreign_prefix(text, m.start(1)):

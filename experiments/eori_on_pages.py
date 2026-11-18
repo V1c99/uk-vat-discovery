@@ -1,8 +1,6 @@
-"""EORI numbers printed on pages. A VAT registered trader's EORI is GB, the VAT number and 000, so
-an EORI on a page is a VAT number written another way. The same two piles as
-says_not_registered.py: the pages the website route fetched and the four crawl text files.
+"""EORI numbers printed on pages, in the same two piles as says_not_registered.py.
 
-    python experiments/eori_on_pages.py results/probes/eori_on_pages.csv
+python experiments/eori_on_pages.py results/probes/eori_on_pages.csv
 """
 
 import csv
@@ -18,7 +16,7 @@ from warcio.archiveiterator import ArchiveIterator
 from ukvat.page import text_of
 from ukvat.vat import check_digits_ok, digits, find_candidates
 
-# the word EORI, then GB or XI (Northern Ireland) and 12 digits. Some pages drop the prefix
+# GB or XI (Northern Ireland) and 12 digits, the prefix is sometimes missing
 EORI = re.compile(r"\bEORI\b[^0-9]{0,40}?((?:GB|XI)?[\s:]*(?:\d\s?){11}\d)(?!\d)", re.I)
 # a plain "eori" in the text also matched "theories" and the French "categorie"
 WORD = re.compile(r"\bEORI\b", re.I)
@@ -30,7 +28,6 @@ def eoris_in(text):
         n = digits(m.group(1))
         vrn = n[:9]
         vat_inside = n.endswith("000") and check_digits_ok(vrn)
-        # the VAT number somewhere else on the page, not only inside the EORI
         rest = text[: m.start()] + text[m.end() :]
         also = vat_inside and any(v == vrn for v, _, ok in find_candidates(rest) if ok)
         out.append([n, vat_inside, also])

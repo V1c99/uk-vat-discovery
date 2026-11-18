@@ -1,7 +1,6 @@
-"""All UK cards from Peppol's export, turned into the same shape as the 2,000 read through the
-search API, and linked to Companies House the same way.
+"""All UK cards from Peppol's export, in the same shape as the 2,000 and linked the same way.
 
-    python experiments/peppol_all.py data/probes/peppol/uk_cards.csv results/peppol_all
+python experiments/peppol_all.py data/probes/peppol/uk_cards.csv results/peppol_all
 """
 
 import csv

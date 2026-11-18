@@ -1,5 +1,5 @@
-"""Every Companies House name reduced to its key words, so another source's names can be looked
-up without fuzzy matching. Writes data/ch_names.parquet (under a minute for 5.7 million names).
+"""Companies House names reduced to their key words, in data/ch_names.parquet, so other names can
+be looked up exactly.
 
     python -m ukvat.chnames
     python -m ukvat.chnames link data/probes/peppol/cards_full.csv results/peppol/linked.csv
@@ -44,7 +44,6 @@ def build():
 
 
 def link(cards_csv, out_csv):
-    """Exact match on the key. Reports how many companies share it, that is the whole problem."""
     cards = list(csv.DictReader(open(cards_csv, encoding="utf-8")))
     by_key = defaultdict(list)
     keys = {" ".join(core_words(c["name"])) for c in cards}
@@ -60,7 +59,7 @@ def link(cards_csv, out_csv):
         w.writerow(["vrn", "peppol_name", "looks_like_company", "matches", "company_number",
                     "company_name", "status", "postcode", "accounts"])  # fmt: skip
         for c in cards:
-            # the snapshot only holds live companies, so every match is a live one
+            # the snapshot has live companies only
             found = by_key.get(" ".join(core_words(c["name"])), [])
             one = found[0] if len(found) == 1 else (None,) * 5
             company = looks_like_company(c["name"])

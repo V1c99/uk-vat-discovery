@@ -1,7 +1,6 @@
-"""Can a crawler, or Common Crawl, read Amazon's and eBay's UK seller pages. Their robots.txt
-files are kept in data/, the answer per page type goes to results/.
+"""What Amazon's and eBay's robots.txt allow on their UK seller pages.
 
-    python experiments/marketplace_robots.py results/probes/marketplace_robots.csv
+python experiments/marketplace_robots.py results/probes/marketplace_robots.csv
 """
 
 import csv

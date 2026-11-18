@@ -1,8 +1,5 @@
-"""Pages that say the business is not VAT registered. The brief's hardest point is that "not
-found" can mean "not registered" or "I failed", and some sites settle it themselves.
-
-Two piles of text: the pages the website route fetched (data/pages), and the four Common Crawl
-text files.
+"""Pages that say the business is not VAT registered, in the fetched pages and the four crawl
+files.
 
     python experiments/says_not_registered.py results/probes/says_not_registered.csv
 """

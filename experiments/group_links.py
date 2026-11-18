@@ -1,9 +1,5 @@
-"""When HMRC's name for a VAT number is another company, is that company the owner, a former
-owner, a sister under the same owner, or a stranger. Owners come from Companies House's persons
-with significant control (experiments/psc_corporate.py), two levels up, ceased ones included.
-
-HMRC's name can be a name the company no longer has, so the other company is also looked for
-under previous names.
+"""When HMRC's name for a number is another company, is it the owner, a former owner or a sister.
+Owners from experiments/psc_corporate.py, two levels up, previous names included.
 
     python experiments/group_links.py results/probes/group_links.csv
 """
@@ -24,7 +20,6 @@ def key(name):
 
 
 def cases():
-    """Every found number where an HMRC name came back and was not the company's own."""
     out = []
     for r in csv.DictReader(open("results/eori/websites.csv", encoding="utf-8")):
         if r["eori_trader_name"] and not same_name(r["company_name"], r["eori_trader_name"]):
@@ -62,7 +57,6 @@ class Register:
         return now, before
 
     def owners(self, number, depth=2):
-        """(owner number, owner key, ceased) up to two levels."""
         found, todo = set(), {number}
         for _ in range(depth):
             if not todo:

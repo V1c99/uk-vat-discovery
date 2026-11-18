@@ -1,8 +1,5 @@
-"""Looking hosts up in Common Crawl's index without the index server, which kept timing out.
-
-cluster.idx has the first key of every block of 3,000 index lines and where the block sits in
-which cdx file. A host's lines are found by bisecting the keys and fetching only those blocks with
-a range request. Blocks are cached in data/.
+"""Common Crawl index lookups through cluster.idx and range requests, the index server kept timing
+out. Blocks are cached in data/.
 """
 
 import bisect
@@ -47,7 +44,6 @@ def block(i):
 
 
 def captures(host):
-    """Every index line for the host and its subdomains, as dicts."""
     if not _keys:
         load()
     out = []

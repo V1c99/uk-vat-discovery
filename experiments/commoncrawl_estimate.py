@@ -1,8 +1,6 @@
-"""How many distinct hosts in the whole October crawl show a VAT number next to a company number.
-The slice read 4 of 100,000 text files. A host with p pages in the crawl lands in the slice with a
-chance of about 1 - (1 - 4/100000)^p, so each host seen counts as 1 over that chance
-(Horvitz-Thompson). It assumes the pair is on every page of the host, a footer usually is, which
-makes p too big for some hosts and the total too small, so it is a floor.
+"""Hosts in the whole October crawl with a VAT number next to a company number, from the 4 file
+slice. A host with p pages counts as 1 / (1 - (1 - 4/100000)^p). A floor, it assumes the pair is
+on every page.
 
     python experiments/commoncrawl_estimate.py 4 results/probes/commoncrawl_estimate.csv
 """
@@ -24,7 +22,7 @@ def main(files_read, out_csv):
         chance = 1 - (1 - f) ** max(p, 1)
         rows.append([h, p, round(chance, 6), round(1 / chance)])
     total = sum(r[3] for r in rows)
-    # each host is in or out on its own, so the variance is the sum of w * (w - 1)
+    # hosts are in or out independently, variance is the sum of w * (w - 1)
     se = round(math.sqrt(sum(r[3] * (r[3] - 1) for r in rows)))
     with open(out_csv, "w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)

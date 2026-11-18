@@ -1,10 +1,5 @@
-"""The customer's problem, in public. St Helens and Knowsley Teaching Hospitals NHS Trust's spend
-file is the only one of the 112 that fills its VAT column: a buyer's own supplier list with the
-VAT number next to each supplier. Three questions on it.
-
-1. How many of its numbers are already in Peppol.
-2. Does HMRC's EORI record agree with the name the hospital has.
-3. Could the website route have found them without the hospital's file.
+"""St Helens and Knowsley's spend file, the one with its VAT column filled: its numbers in Peppol,
+the EORI names, and the website route on its suppliers.
 
     python experiments/nhs_ledger.py results/probes/nhs_ledger.csv results/probes/nhs_ledger
 """

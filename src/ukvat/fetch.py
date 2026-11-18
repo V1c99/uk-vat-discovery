@@ -21,8 +21,7 @@ PAUSE = 1.0
 
 _dns = ThreadPoolExecutor(max_workers=32)
 _robots = {}
-# two runs on the same sample differed by six companies because lookups timed out under load,
-# so answers are kept and a rerun sees the same domains
+# lookups timed out under load and two runs differed by six companies, so answers are cached
 _answers = json.loads(DNS_CACHE.read_text()) if DNS_CACHE.exists() else {}
 
 
@@ -70,7 +69,6 @@ def allowed(url):
 
 
 def get(url):
-    """Returns {url, final_url, status, html} or None. Cached, so a rerun costs nothing."""
     path = _cache_path(url)
     if path.exists():
         return json.loads(gzip.decompress(path.read_bytes()))

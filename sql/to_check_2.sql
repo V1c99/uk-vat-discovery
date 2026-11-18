@@ -2,7 +2,7 @@
 --   both numbers of every company where the site and Peppol disagree on a strict find
 --   every loose find that is not Peppol's number
 --   20 random strict finds that do agree, to test agreement as a stand-in for HMRC
--- Same tool as the first list:
+-- To record checks by hand:
 --   python -m ukvat.handcheck results/hmrc/to_check_2.csv results/hmrc/checks_2.csv
 
 create view c as

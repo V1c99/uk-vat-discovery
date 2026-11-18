@@ -1,6 +1,6 @@
 -- Every number the README reports comes from here and nowhere else.
 --   python -m ukvat.run_sql sql/numbers.sql
--- A number found counts as confirmed only after my check in HMRC's checker. The checks go into
+-- A number found counts as confirmed only after a check in HMRC's checker. The checks go into
 -- results/hmrc/checks.csv and checks_2.csv, and python -m ukvat.score turns them into
 -- results/hmrc/scored.csv and scored_2.csv.
 

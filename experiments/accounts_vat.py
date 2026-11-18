@@ -1,11 +1,6 @@
-"""What filed accounts say about VAT. Two days of Companies House's accounts bulk data (iXBRL,
-one html file per filing, the company number is in the file name).
+"""What filed accounts say about VAT, from two days of Companies House's accounts bulk data.
 
-My guess was that some accounts carry the VAT number as a tag. The first scan said 15 files had a
-VAT tag, but the regex was case blind and "DeriVATives" matched. With the tag name read properly
-there are none, so the question became what the text says instead.
-
-    python experiments/accounts_vat.py results/probes data/accounts/*.zip
+python experiments/accounts_vat.py results/probes data/accounts/*.zip
 """
 
 import csv
@@ -20,7 +15,7 @@ from ukvat.vat import find_candidates
 
 VAT_TAG = re.compile(rb'name="[A-Za-z0-9\-]+:([A-Za-z]*VAT[A-Za-z]*)"')
 TRADING_NAME = re.compile(rb'name="[A-Za-z0-9\-]+:EntityTradingName"')
-# turnover above the threshold would say "should be registered", if small companies filed it
+# turnover over the VAT threshold would mean "must be registered"
 TURNOVER = re.compile(rb'name="[A-Za-z0-9\-]+:(?:TurnoverRevenue|Turnover)"')
 SAYS = {
     "vat group": re.compile(

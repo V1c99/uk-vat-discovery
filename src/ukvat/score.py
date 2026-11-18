@@ -1,20 +1,16 @@
-"""Puts my HMRC checks next to what was found, and says for each number whether HMRC agrees.
+"""Puts the HMRC checks next to what was found, with a verdict for each number.
 
     python -m ukvat.score results/hmrc/to_check.csv results/hmrc/checks.csv \
         results/hmrc/scored.csv
 
 verdict:
-  right company       live, and HMRC's name is the company's name (same key words)
-  same postcode only  live, another name at the company's postcode, and fewer than 100 companies
-                      sit at that postcode. A VAT group looks like this, read one by one
-  someone else        live, another name, and the postcode is different or is one of the
-                      crowded ones (a third of live companies sit at a postcode with 100 or more,
-                      sql/crowding.sql), so it proves nothing
-  not registered      HMRC says the number is not a live registration
+  right company       live, HMRC's name is the company's name (same key words)
+  same postcode only  live, another name at the company's postcode, fewer than 100 companies there
+  someone else        live, another name, a different or crowded postcode
+  not registered      not a live registration
   not checked         no check yet
 
-A different postcode is never held against a match: on the 29 page pairs where HMRC's name was
-the company's own, the postcode differed in 8 (results/probes/commoncrawl_pairs.csv).
+A different postcode never counts against a match, it differed in 8 of the 29 right page pairs.
 """
 
 import csv

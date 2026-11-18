@@ -1,8 +1,6 @@
--- Which kinds of company almost never show up among companies that are known to be VAT
--- registered. Known registered = all Peppol UK cards linked to one company by name, compared
--- with the whole frame by SIC code. Peppol leans to companies selling to other companies and to
--- the public sector, so this is a hint about sectors, not a measurement of them.
--- (The first run used the 2,000 cards from the search API, this one the full export.)
+-- SIC codes that almost never show up among known registered companies (all Peppol UK cards
+-- linked to one company by name) against the whole frame. Peppol leans to companies selling to
+-- other companies and to the public sector, so it is a hint only.
 --   python -m ukvat.run_sql sql/registered_sectors.sql
 
 create view frame as
