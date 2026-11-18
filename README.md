@@ -82,7 +82,7 @@ under a person's name at the company's address.
 Regulation 6 of the E-Commerce Regulations 2002 asks a business that sells online to show its VAT
 number. Of the 1,401 companies I know are registered, 255 have a site that shows their company
 number, and 98 of those print the VAT number, 38.4% (32.7 to 44.5, Wilson interval). By size band
-it is micro 39 of 105, small 51 of 125, large 2 of 9.
+it is micro 39 of 105, small 51 of 125, large 2 of 9, new 5 of 14 and dormant 1 of 2.
 
 For the 155 silent sites I read the html again. In 2 the number was there and my reader missed it,
 17 link a pdf where it may be, and 136 do not have it anywhere. So even with every website known,
@@ -117,8 +117,9 @@ company's and was cancelled.
 In a VAT group one number covers many companies, and HMRC shows one member's name, sometimes a name
 the company does not use any more. Of 7 numbers I found where HMRC's EORI name was another company,
 Companies House's control data explains 3: a former owner, a sister company and an old holding
-company. One number, 204979488, is on the sites of two companies of the Sykes Cottages group. For an invoice the group's number is right. As a key for a
-company it is not, and a customer who merges suppliers on it merges two real suppliers.
+company. One number, 204979488, is on the sites of two companies of the Sykes Cottages group.
+For an invoice the group's number is right. As a key for a company it is not, and a customer who
+merges suppliers on it merges two real suppliers.
 
 ### Names and postcodes prove less than they look
 
