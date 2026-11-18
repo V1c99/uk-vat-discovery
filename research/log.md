@@ -564,3 +564,45 @@ probably the same people and still not the company. 0 of 10, loose finds stay ou
 
 HMRC's postcode is not the registered office for 20 of the 49 numbers it shows under the company's
 own name, so a different postcode still proves nothing.
+
+## 18 Nov, EORI numbers on pages
+
+The brief says the VAT number sometimes hides inside other identifiers. I had two of them, Peppol's
+scheme 9932 and the EORI, and so far the EORI was only a second look at numbers already found. Can
+it also find numbers. My guess was no. An EORI is for customs, so I expected it on a few pages of
+importers and exporters, and next to the VAT number when it is there.
+
+```
+python experiments/eori_on_pages.py results/probes/eori_on_pages.csv
+```
+
+The first count said 835 crawl pages have it, because "eori" is inside "theories" and the French
+"categorie". As a word it is on 8 of the 83,776 crawl pages and on 3 of the 6,673 pages the website
+route fetched. There are 2 EORI numbers in all, both GB, a valid VAT number and 000, and both pages
+print the VAT number too. So the EORI adds nothing to finding numbers and it stays a second look.
+
+## 18 Nov, France
+
+The brief asks for a country where the VAT number is barely discovered. A French VAT number is FR,
+a two digit key and the SIREN, and the key is `(12 + 3 * (siren % 97)) % 97`. My expectation was
+that the computed number is the company's for every company that is registered and that VIES shows
+the name, so in France the only question left is whether a company is registered at all.
+
+```
+python experiments/vies_france.py results/probes/vies_france.csv
+```
+
+Two live SARL or SAS from each of ten departements, from the state's open company search
+(recherche-entreprises.api.gouv.fr), on a page picked by md5. Two departements had only one company
+with its head office there on that page, so it is 18. I had not expected the search to print a VAT
+number itself, and it does for 14 of the 18.
+
+France's side of VIES answered MS_MAX_CONCURRENT_REQ to 6 of the 18 on the first run, even after six
+tries. The script keeps every answer in `data/probes/vies` now, and two more runs only asked again
+for the busy ones.
+
+VIES says valid for all 14 numbers the search prints and shows the name for each. For the 4 where
+the search prints nothing, the computed number is not valid either. My guess was wrong in one place:
+for GLB PIZZAS the search shows FR0A477804645, a key with a letter in it, and the computed
+FR36477804645 is not valid. So the key is computed for most companies and not for all, and the
+search is the better source. Either way, in France "not found" means "not registered".

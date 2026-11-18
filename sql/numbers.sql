@@ -91,6 +91,11 @@ select 'hmrc checks', 'all', 'numbers not checked yet',
        count(distinct vrn) filter (where verdict = 'not checked')::varchar
 from scored
 union all
+-- 4 numbers were in both lists, so 79 checks are 75 different numbers
+select 'hmrc checks', 'all', 'checks in the web checker, different numbers',
+       count(*) || ', ' || count(distinct vrn)
+from scored where verdict <> 'not checked'
+union all
 -- the same per kind of find, a number checked in both lists counts once
 select 'hmrc checks', 'finds, ' || kind || ', ' || outcome, verdict, count(*)::varchar
 from finds group by all
@@ -134,9 +139,11 @@ union all
 select 'known set', 'all', 'peppol cards read', count(*)::varchar
 from read_csv('results/peppol_2000/linked.csv', header = true, all_varchar = true)
 union all
--- the probes, each file is two columns, what and value
+-- the probes, each file is two columns, what and value. published_figures.csv is HMRC's VAT
+-- statistics for 2024 to 2025 as printed on gov.uk (see the log, 13 Nov)
 select 'probe', parse_filename(filename, true), what, value
 from read_csv(['results/probes/vat_number_age.csv', 'results/probes/legal_duty.csv',
+               'results/probes/published_figures.csv',
                'results/probes/peppol_dates.csv', 'results/probes/registered_sectors_summary.csv',
                'results/probes/cross_sources.csv', 'results/probes/accounts_vat.csv',
                'results/probes/commoncrawl_wet.csv', 'results/probes/checksum_space.csv',
@@ -207,6 +214,38 @@ union all
 select 'probe', 'vies_germany', vat_id,
        'valid ' || valid || ', name shown ' || name_shown || ', address shown ' || address_shown
 from read_csv('results/probes/vies_germany.csv', header = true, all_varchar = true)
+union all
+-- 18 Nov, EORI numbers printed on pages, and France where the number follows from the SIREN
+select 'probe', 'eori_on_pages', what, value
+from read_csv('results/probes/eori_on_pages_summary.csv', header = true, all_varchar = true)
+union all
+select 'probe', 'eori_on_pages', 'eori numbers, with a vat number inside, vat number also on the page',
+       count(*) || ', ' || count(*) filter (where vat_inside = 'True') || ', '
+           || count(*) filter (where vat_also_on_page = 'True')
+from read_csv('results/probes/eori_on_pages.csv', header = true, all_varchar = true)
+union all
+select 'probe', 'vies_france', 'companies', count(*)::varchar
+from read_csv('results/probes/vies_france.csv', header = true, all_varchar = true)
+union all
+select 'probe', 'vies_france', 'the search shows the computed number, another number, none',
+       count(*) filter (where search_vat = computed_vat) || ', '
+           || count(*) filter (where coalesce(search_vat, '') not in ('', computed_vat)) || ', '
+           || count(*) filter (where coalesce(search_vat, '') = '')
+from read_csv('results/probes/vies_france.csv', header = true, all_varchar = true)
+union all
+select 'probe', 'vies_france', 'vies on the computed number: ' || vies_on_computed, count(*)::varchar
+from read_csv('results/probes/vies_france.csv', header = true, all_varchar = true)
+group by all
+union all
+select 'probe', 'vies_france', 'vies on the other number the search shows: ' || vies_on_search_vat,
+       count(*)::varchar
+from read_csv('results/probes/vies_france.csv', header = true, all_varchar = true)
+where coalesce(vies_on_search_vat, '') <> ''
+group by all
+union all
+select 'probe', 'vies_france', 'vies shows the name', count(*)::varchar
+from read_csv('results/probes/vies_france.csv', header = true, all_varchar = true)
+where name_shown = 'True'
 union all
 select 'probe', 'marketplace_robots', site || ', ' || page,
        'common crawl allowed ' || common_crawl_allowed || ', read on ' || read_on
