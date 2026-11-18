@@ -19,12 +19,44 @@ registration and a number that is not live any more.
 Crawling more would not change this much. Only 38% of registered companies with a site I could
 prove print their number, one number can belong to several companies, and sites keep old numbers.
 So I would not sell a dataset built from the web as the answer to this customer. Their own invoices
-already carry the number, Peppol has 22,485 UK numbers today, and from 1 April 2029 VAT invoices have
-to be e-invoices over Peppol. The web is useful for the gaps and as a second opinion.
+already carry the number. Peppol's e-invoicing directory, a source that is not on your list, has
+22,485 UK numbers today, and from 1 April 2029 VAT invoices have to be e-invoices over Peppol. The
+web is useful for the gaps and as a second opinion.
 
-## How I worked
+## How it went
 
-I kept a notebook of every run, in the order things happened, with the commands and what came back:
+I started at HMRC and not at the data, because everything I report has to pass HMRC's checker. The
+open API for that check was removed in February 2025 and the new one is only for traders doing due
+diligence, so every number I count as found went through the web checker (gov.uk/check-uk-vat-number),
+one at a time. HMRC's EORI checker is still open, and a VAT registered trader's EORI is GB, the VAT
+number and 000, so it gave me a free second look at numbers I had already found.
+
+Then I went company first: 400 live companies drawn at random from the register, a website guessed
+from each name, and a number only counted when the site also shows the company's registration
+number. 234 had some live guessed site, 23 had one that is provably theirs, and 6 of those print a
+VAT number. Finding the site is where it broke, not reading the number.
+
+The same day I found Peppol. A UK business can be in its directory under scheme 9932, and its
+identifier there is its VAT number. That gave me UK numbers by the thousand, and also companies
+whose number I already knew, so I could test my route where the right answer is known. Of 1,401
+such companies, 255 have a site that is provably theirs, only 98 of those print the number, and 96
+of the 98 are Peppol's number.
+
+The sources you list came next, and most of them are dead ends with a number behind them:
+procurement notices, the Gazette, filed accounts, marketplace sellers. The crawl is cheap and
+small. One hospital's spend file has its suppliers' numbers, and my route found none of the 19 it
+could link on the web.
+
+While joining numbers to the age of their companies I noticed that a VAT number carries its own
+date. That gave me a test to run before asking HMRC anything, and it picked the live number in both
+cases where a site and Peppol disagree.
+
+On 16 and 17 Nov, 79 checks went into HMRC's web checker. An automated browser typed them, one
+number at a time and only numbers I had already found, and when the checker answered 429 it waited
+and went on slower. On 18 Nov I added two small probes, EORI numbers printed on pages and France,
+where the VAT number follows from the company number.
+
+I kept a notebook of every run, in order, with the commands and what came back:
 `research/log.md`. The pipeline is in `src/ukvat`, the probes in `experiments/` (one script each),
 and every number in this README is printed by one file:
 
@@ -32,24 +64,39 @@ and every number in this README is printed by one file:
 python -m ukvat.run_sql sql/numbers.sql
 ```
 
-I went company first, not crawl first. Harvesting VAT numbers from a crawl only finds the companies
-that publish, which is the sample the brief rules out, and it cannot say what share of the register
-is reachable. So I start from a company and look for its number, and the crawl is in here as a
-probe of coverage and cost. Python fetches and reads the pages, and DuckDB SQL does the sample, the
-joins and the counting.
-
-I used two samples. 400 live companies drawn at random from the Companies House snapshot of 1 Nov
-2026, 100 from each size band, where "not found" can also mean "not registered". And 1,401
-companies whose VAT number I already knew from Peppol, the e-invoicing directory, where "not found"
-can only mean that my method failed.
-
-Every number I count as found went through HMRC's web checker (gov.uk/check-uk-vat-number). The
-API for the same check is behind an application since February 2025 and HMRC says it is for traders
-doing due diligence, so I did not use it. The checks were typed into the web checker by an automated
-browser, one number at a time and only numbers I had already found. When the checker answered 429 it
-waited and went on slower.
+Python fetches and reads the pages, and DuckDB SQL does the sample, the joins and the counting.
 
 ## Research (part 1)
+
+### Peppol, a source that is not on your list
+
+Peppol is the e-invoicing network, and its directory lists who can receive e-invoices. Under scheme
+9932 a UK business's identifier is its VAT number, so here the VAT number hides inside another
+identifier. The full export has 22,485 UK cards with a valid number. 15,259 of the company names
+point at exactly one live company by the words of the name alone, and 3,315 cards look like people,
+sole traders, whose names I kept out of this repo.
+
+12,148 of the cards were registered on one day, 25 Aug 2025, and in the full months of 2026 it has
+been 342 to 682 new UK cards a month. HMRC's policy paper of 28 Oct 2026 makes e-invoices
+compulsory for VAT invoices from 1 April 2029, with Peppol as the network and HMRC as the UK's
+Peppol authority. Today that authority sits in Supply Chain Coordination Limited, the company that
+runs NHS Supply Chain. HMRC shows 18 of 20 random Peppol numbers as live.
+
+For me Peppol was also an answer key. 2,000 random UK cards gave 1,401 companies with a legal
+ending that point at exactly one live company, all registered and all with a known number. On them
+"not found" can only mean that my method failed, and most of what follows was measured on them.
+
+### EORI, the other identifier
+
+A VAT registered trader's EORI, the number used for customs, is GB, the VAT number and 000. HMRC's
+EORI checker is open, with no login, and for some traders it shows the name and address. So it is a
+free second look at a number already found. On the 106 numbers from the crawl pages it gave a name
+for 34, and 29 of those were the company on the page. Among my first finds it caught a platform's
+number and a VAT group before HMRC's VAT checker did.
+
+As a way to find numbers it gives nothing. On 18 Nov I looked for EORI numbers printed on pages.
+The word EORI is on 3 of the 6,673 pages the website route fetched and on 8 of the 83,776 crawl
+pages. There are 2 EORI numbers in all, and both pages print the VAT number as well.
 
 ### A VAT number carries its own date
 
@@ -128,13 +175,12 @@ WC2H 9JQ alone has 75,154. 11.4% of companies share their name with another once
 and filler words go, 3.9% with only the legal ending dropped. The worst are families where only a
 bracket differs, NAMECO (NO. x) 623 times. This is how the customer matches today.
 
-### The register is being built in public
+### The buyer already has the number
 
-Peppol's directory has 22,485 valid UK VAT numbers. 12,148 of them were registered on one day, 25
-Aug 2025, and since then it has been 342 to 682 new UK cards a month. HMRC's policy paper of 28 Oct
-2026 makes e-invoices compulsory for VAT invoices from 1 April 2029, with Peppol as the network and
-HMRC as the UK's Peppol authority. Today that authority sits in Supply Chain Coordination Limited,
-the company that runs NHS Supply Chain.
+St Helens and Knowsley Teaching Hospitals NHS Trust publishes its spending with a VAT number next to
+each supplier, 34 numbers. That is this customer's situation, in public. Only 4 of the 34 are in
+Peppol, 19 of the suppliers link to one company, and my website route finds the number for none of
+the 19. They are big medical suppliers, and they put the number on the invoice, not on the site.
 
 ### Sources that gave something
 
@@ -153,15 +199,16 @@ files, and it assumes the pair is on every page of the host (standard error abou
 
 ### Dead ends
 
-| where | why I tried it | what came back |
+| where | what I expected | what came back |
 |---|---|---|
-| Find a Tender, 3 to 10 Nov | every award names its suppliers | parties identified by PPON 4,071 times and by company number 1,608 times, never by a VAT number |
-| The Gazette | insolvency notices name the business | "Company number" in 1,705,312 notices, "VAT No" in 28 |
-| spend files, one per publisher on data.gov.uk | buyers hold their suppliers' numbers | 6 of 112 have a VAT number column, 4 of those are empty |
-| filed accounts, two days | I guessed some small companies tag the number | none in 23,751 filings |
+| Find a Tender, 3 to 10 Nov | award notices name their suppliers, maybe by VAT number | parties identified by PPON 4,071 times and by company number 1,608 times, never by a VAT number |
+| The Gazette | insolvency notices name the business with its numbers | "Company number" in 1,705,312 notices, "VAT No" in 28 |
+| spend files, one per publisher on data.gov.uk | buyers publish their suppliers' numbers | 6 of 112 have a VAT number column, 4 of those are empty |
+| filed accounts, two days | some small companies tag the number | none in 23,751 filings |
 | Amazon and eBay seller pages | business sellers have to show a VAT number | both disallow Common Crawl's crawler and forbid scraping, so I fetched none |
-| Nominet WHOIS | it could tie a guessed domain to a company | no registrant and no company number, and the .uk WHOIS stops on 9 Feb 2027 |
+| Nominet WHOIS | it ties a guessed domain to a company | no registrant and no company number, and the .uk WHOIS stops on 9 Feb 2027 |
 | pages saying "not VAT registered" | a way to tell "not registered" from "I failed" | 0 of 1,382 fetched pages, 2 of 83,776 crawl pages |
+| EORI numbers on pages | importers and exporters print their EORI, sometimes without the VAT number | the word on 3 of 6,673 fetched pages and 8 of 83,776 crawl pages, 2 EORI numbers, both next to the VAT number |
 
 Two of these taught me more than the table says. In the spend files Shropshire Community Health NHS
 Trust's VAT number column is full of VAT amounts (2.1, 10.49, 4.4), and only St Helens and Knowsley
@@ -271,37 +318,59 @@ and the ones a company took over from its owner.
 
 ## With real resources (part 3)
 
-### What each resource would change
+### What I would build
+
+Not a bigger crawl. In this order:
+
+1. Peppol's directory linked to Companies House. 22,485 numbers today, 15,259 of them linked to
+   exactly one live company by the name alone, a full export every day, and by April 2029 every
+   VAT registered business. An address match can settle some of the names that point at several
+   companies, and the people stay out.
+2. The customer's own invoices. Every VAT invoice they receive carries the supplier's number, the
+   two thirds they match by name included. So what I would offer this customer is the match from
+   the number on their invoice to a company record, with Peppol and the register behind it, more
+   than a list of numbers. Their invoices are also a test set with the right answers in it.
+3. The web route only for companies with a known site and no number from either. Strict finds only,
+   through the age test and the EORI name before HMRC's checker.
+4. A person for the cases a rule cannot decide.
+
+### What each resource changes
 
 Veridion's own company to website links fix the step that failed most here, only 23 of the 400
 sampled companies had a site I could prove. They do not move the 38% of registered companies with a
 site that print the number.
 
-A crawl budget and a cluster make a whole Common Crawl cheap to read. It is 6.4 TB of text, about 60
-hours of one core to scan once it is downloaded, but the yield stays near 22,000 hosts with both
-numbers in one crawl.
+A crawl budget and a cluster make a whole Common Crawl cheap to read. Four of its 100,000 text
+files were 251 MB and took this laptop 9 seconds to scan once they were downloaded, so one crawl is
+about 6.3 TB and about 62 hours of one core. The yield stays near 22,000 hosts a crawl with both
+numbers on a page, and the crawl had only 9 of the 21 VAT pages I found live, so live fetching stays
+in.
+
+Commercial sources I could not test, I had no access to any. The first thing I would do with one is
+put 100 of its numbers through my checks (HMRC's checker, the age test and the proof on the page)
+before reading anything else about it.
+
+Proxies are not needed for the website route. It makes about 3 page requests per company, spread
+over millions of different sites, so no single site's limit comes near. Proxies would only help
+with getting round HMRC's 429 or the marketplaces' terms, and I would not do either for a product.
 
 An annotation team is where I would spend. The cases a rule cannot decide are the group numbers,
-the numbers a company took over from its owner and a person's number on a company's site, and each
-needs someone to read ownership records.
-
-Commercial sources I could not test, I had no access to any. Proxies would only help with getting
-round HMRC's 429 or the marketplaces' terms, and I would not do either for a product.
+the numbers a company took over from its owner and a person's number on a company's site. On the
+register sample that was 3 of the 6 strict finds, and each one needs someone to read ownership
+records.
 
 ### Cost per company
 
 On this laptop, with 12 threads and the pause of a second, the website route took 49 seconds per
 strict find on the register sample and 12 seconds on the known set. Almost all of it is waiting for
-other people's servers, and it is about 3 page requests and 10 DNS lookups per company, so on a
-cluster it is cheap. The expensive part is a person. My guess is half a minute for one check in
-HMRC's web checker, and the in-between cases need someone to read ownership records, a few minutes
-each. So checking is what costs money, not finding.
+other people's servers. It is about 3 page requests and 10 DNS lookups per company, so on a cluster
+the fetching costs close to nothing.
 
-What I would build with the resources is not a bigger crawl. Peppol first: 22,485 numbers today, a
-full export once a day, and every VAT registered business by 2029, linked to Companies House by name
-and postcode with the people left out. Then the customer's own invoices: every VAT invoice they
-receive carries the supplier's number, the two thirds they match by name included. The web route
-only for companies with a known site and no number from either.
+The person is the cost. Per 100 companies on the register the route gives 1.35 numbers to check
+and 0.98 that HMRC shows under the company's own name. My guess is half a minute for one check in
+HMRC's web checker and a few minutes for each case in between. So one confirmed number from the web
+costs the fetching of about 100 companies, which is cheap, and one to a few minutes of a person,
+which is not.
 
 ### What breaks first
 
@@ -359,10 +428,31 @@ other than due diligence, and the web checker at volume.
 
 ## Beyond the UK
 
-Germany is the mirror. VIES confirmed both German numbers I tried and showed "---" as the name and
-the address, so there the hard part is verification. The German Impressum has to show the VAT ID, so
-discovery may be the easy part, but that is the law and I did not measure it. In the UK it is the
-other way round: checking a number is free and finding one is hard.
+Germany is close to the mirror image of the UK. VIES confirmed
+both German numbers I tried and showed "---" as the name and the address, so the part HMRC's checker
+gives me for free, whose number it is, is missing. Discovery should be easier. A German business
+site has to carry an Impressum with its register entry and its VAT ID if it has one, which is the
+pair my proof test looks for, so that half of the pipeline moves over. I did not measure how often
+the rule is followed there. The checking half I would build again, from sources that agree with each
+other, because VIES will not say whose number it is.
+
+France is a country where the number is barely discovered. A French VAT number is FR, a two digit
+key and the SIREN, the company's number in the national register, and the key is normally computed
+from the SIREN. On 18 Nov I took 18 live SARL and SAS from ten departements in the state's open
+company search and asked VIES about each number. The search itself prints a VAT number for 14 of
+them, and VIES says valid for all 14 and shows the name every time. 13 of the 14 are the number I
+computed. The other one, GLB PIZZAS, has a key with a letter in it, FR0A477804645, which the formula
+cannot give. For the 4 where the search prints nothing, VIES says the computed number is not valid,
+so those companies have no live number. In France "not found" means "not registered", which is the
+split I could not make for 360 of the 390 UK companies where I found nothing.
+
+Of the three I looked at, the UK is hard on discovery and easy on verification, Germany looks like
+the other way round, and France is easy on both. So I would start with the countries where the number follows
+from the register, a join and a VIES call per company. France is one, and I expect Belgium to be
+another, where the VAT number is the enterprise number with BE in front, but I did not check it.
+Countries like Germany need the website route and another way of checking. The really hard ones are
+hard on both sides: a number with no link to the register like the UK's, and a checker that shows
+no name like Germany's.
 
 ## How to run
 
